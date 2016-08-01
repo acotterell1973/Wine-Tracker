@@ -7,6 +7,15 @@
 
     <Button Text="Look Up" Command="{Binding SiginCommand}" ></Button>
     <Button Text="Scan" Command="{Binding ScanbarCode}" ></Button>
+    <Button Text="Take Picture" Command="{Binding TakePicture}" ></Button>
+
+    
+    <StackLayout>
+      <Label Text="{Binding Model.number}"></Label>
+      <Label Text="{Binding Model.itemname}"></Label>
+      <Label Text =" Scanned Text"></Label>
+      <Label Text="{Binding Model.ScannedText}"  ></Label>
+    </StackLayout>
   </StackLayout>
 
 </ContentPage>

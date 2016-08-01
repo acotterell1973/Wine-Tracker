@@ -1,8 +1,11 @@
 ﻿using System;
 using FreshMvvm;
+using Tesseract;
+using Tesseract.iOS;
 using WineTracker.Helpers;
 using WineTracker.Services;
 using WineTracker.Services.Components;
+using WineTracker.Services.Components.ExternalServices;
 using WineTracker.ViewModels;
 using Xamarin.Forms;
 using Constants = WineTracker.Helpers.Constants;
@@ -25,11 +28,12 @@ namespace WineTracker
         }
         private static void RegisterDependancies()
         {
+ 
             Akavache.BlobCache.ApplicationName = Constants.CacheName;
+            FreshIOC.Container.Register<IApiUpcDatabase, ApiUpcDatabase>();
+            FreshIOC.Container.Register<ITesseractApi, TesseractApi>();
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
-
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();
-
             FreshIOC.Container.Register(HttpClientConnector.Instance);
         }
 

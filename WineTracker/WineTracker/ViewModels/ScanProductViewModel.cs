@@ -1,10 +1,17 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using PropertyChanged;
+using Tesseract;
+using WineTracker.Components;
 using WineTracker.Models;
 using WineTracker.PageModels;
 using WineTracker.Services;
 using Xamarin.Forms;
+
+
 
 namespace WineTracker.ViewModels
 {
@@ -12,22 +19,42 @@ namespace WineTracker.ViewModels
     public class ScanProductViewModel : BaseViewModel<ProductInfo>
     {
         private readonly IUpcCodeService _upcCodeSerivce;
+        private readonly ITesseractApi _tesseractApi;
         CancellationTokenSource _lastCancelSource;
+        private Image _takenImage;
 
-        public ScanProductViewModel(IUpcCodeService upcCodeSerivce)
+        public ScanProductViewModel(IUpcCodeService upcCodeSerivce, ITesseractApi tesseractApi)
         {
             _upcCodeSerivce = upcCodeSerivce;
+            _tesseractApi = tesseractApi;
         }
+
         public override void Init(object initData)
         {
             base.Init(initData);
-            Model = new ProductInfo { number = "049331000372" };
+            Model = new ProductInfo { number = "7572000081" };
         }
 
         #region Helpers
+        private async Task<MediaFile> TakePic()
+        {
+            var mediaPicker = DependencyService.Get<IMedia>() ?? CrossMedia.Current;
+            await mediaPicker.Initialize();
 
+            if (!mediaPicker.IsCameraAvailable || !mediaPicker.IsTakePhotoSupported) return null;
+            var mediaStorageOptions = new StoreCameraMediaOptions
+            {
+                DefaultCamera = CameraDevice.Rear,
+                Directory = "Sample",
+                Name = "test.jpg"
+            };
+            var mediaFile = await mediaPicker.TakePhotoAsync(mediaStorageOptions);
+
+            return mediaFile;
+        }
         private async Task<ProductInfo> QueryUpc(string upc)
         {
+            Model.number = upc;
             _lastCancelSource?.Cancel();
 
             // Perform the _search
@@ -45,7 +72,7 @@ namespace WineTracker.ViewModels
                 return new Command(async () =>
                 {
                     IsBusy = true;
-                    await QueryUpc(Model.number);
+                    Model = await QueryUpc(Model.number);
                     IsBusy = false;
                 });
             }
@@ -59,12 +86,47 @@ namespace WineTracker.ViewModels
                 {
                     var scanner = new ZXing.Mobile.MobileBarcodeScanner();
                     var upc = await scanner.Scan();
-                    await QueryUpc(upc.Text);
+                    Model = await QueryUpc(upc?.Text);
                 });
             }
         }
 
+        public Command TakePicture
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    try
+                    {
+                        if (!_tesseractApi.Initialized)
+                            await _tesseractApi.Init("eng");
 
+                        var photo = await TakePic();
+                        if (photo != null)
+                        {
+                            var photoStream = photo.GetStream();
+                            var imageBytes = new byte[photoStream.Length];
+                            photoStream.Position = 0;
+                            photoStream.Read(imageBytes, 0, (int)photoStream.Length);
+                            photoStream.Position = 0;
+
+                            _takenImage = new Image { Source = ImageSource.FromStream(() => photoStream) };
+                            var tessResult = await _tesseractApi.SetImage(imageBytes);
+                            if (tessResult)
+                            {
+                                Model.ScannedText = _tesseractApi.Text;
+                            }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        AsyncErrorHandler.HandleException(exception);
+                    }
+
+                });
+            }
+        }
         #endregion
     }
 }

@@ -27,5 +27,8 @@ namespace WineTracker.Models
 
         [JsonProperty(PropertyName = "RateDown")]
         public int rate_down { get; set; }
+
+        public string ScannedText { get; set; }
+    
     }
 }

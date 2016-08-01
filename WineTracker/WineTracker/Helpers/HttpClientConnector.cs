@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ModernHttpClient;
 using Newtonsoft.Json;
 
 namespace WineTracker.Helpers
@@ -18,7 +19,8 @@ namespace WineTracker.Helpers
 
             var baseAddress = new Uri("https://services.techverseenterprise.com:444");
             var cookieContainer = new CookieContainer();
-            var httpClientHandler = new HttpClientHandler
+            
+            var httpClientHandler = new NativeMessageHandler
             {
                 CookieContainer = cookieContainer
             };

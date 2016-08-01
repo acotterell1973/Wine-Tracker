@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Polly;
 using WineTracker.Models;
+using WineTracker.Services.Components.ExternalServices;
 using Xamarin;
 // ReSharper disable ImplicitlyCapturedClosure
 
@@ -13,16 +12,14 @@ namespace WineTracker.Services.Components
 {
     public class UpcCodeComponent : ComponentBase, IUpcCodeComponent
     {
-        private readonly HttpClient _client;
+        private readonly IApiUpcDatabase _apiUpcDatabase;
 
-        public UpcCodeComponent(HttpClient client)
+        public UpcCodeComponent(IApiUpcDatabase apiUpcDatabase)
         {
-            _client = client;
+            _apiUpcDatabase = apiUpcDatabase;
         }
         public async Task<ProductInfo> GetProductByUpcCode(CancellationToken cancellationToken, string upccode)
         {
-            ProductInfo product = null;
-          
             var policy = Policy.Handle<Exception>().RetryAsync(3, (exception, attempt) =>
             {
                 Insights.Report(exception, new Dictionary<string,string>
@@ -37,13 +34,7 @@ namespace WineTracker.Services.Components
                 {
                     using (Insights.TrackTime("ProductInfo", "GetProductByUpcCode", upccode))
                     {
-                        var response = await _client.GetAsync($"http://api.upcdatabase.org/json/25d857d64d51eaa72ac268b056472726/{upccode}", 
-                            cancellationToken);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var jsonMessage = await response.Content.ReadAsStringAsync();
-                            product = JsonConvert.DeserializeObject<ProductInfo>(jsonMessage);
-                        }
+                        return await _apiUpcDatabase.GetInfoByUpc(upccode);
                     }
                 });
             }
@@ -52,7 +43,7 @@ namespace WineTracker.Services.Components
                 Insights.Report(exception);
             }
 
-            return product;
+            return  null;
         }
     }
 }
