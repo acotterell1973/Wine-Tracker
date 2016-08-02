@@ -65,14 +65,14 @@ namespace WineTracker.ViewModels
         }
         #endregion
         #region Commands
-        public Command SiginCommand
+        public Command UpcEntryCommand
         {
             get
             {
                 return new Command(async () =>
                 {
                     IsBusy = true;
-                    Model = await QueryUpc(Model.number);
+                    if (Model != null) Model = await QueryUpc(Model.number);
                     IsBusy = false;
                 });
             }

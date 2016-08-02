@@ -22,7 +22,7 @@ namespace WineTracker.Services.Components
         {
             var policy = Policy.Handle<Exception>().RetryAsync(3, (exception, attempt) =>
             {
-                Insights.Report(exception, new Dictionary<string,string>
+                Insights.Report(exception, new Dictionary<string, string>
                 {
                     { "Number Of Attempts", attempt.ToString()},
                     { "UPC COde", upccode}
@@ -30,20 +30,20 @@ namespace WineTracker.Services.Components
             });
             try
             {
-                await policy.ExecuteAsync(async () =>
-                {
-                    using (Insights.TrackTime("ProductInfo", "GetProductByUpcCode", upccode))
+                return await policy.ExecuteAsync(async () =>
                     {
-                        return await _apiUpcDatabase.GetInfoByUpc(upccode);
-                    }
-                });
+                        using (Insights.TrackTime("ProductInfo", "GetProductByUpcCode", upccode))
+                        {
+                            return await _apiUpcDatabase.GetInfoByUpc(upccode);
+                        }
+                    });
             }
             catch (Exception exception)
             {
                 Insights.Report(exception);
             }
 
-            return  null;
+            return null;
         }
     }
 }

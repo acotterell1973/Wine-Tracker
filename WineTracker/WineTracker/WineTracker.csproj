@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Components\ComponentBase.cs" />
     <Compile Include="Services\Components\ExternalServices\ApiUpcDatabase.cs" />
+    <Compile Include="Services\Components\ExternalServices\IApiUpcDatabase.cs" />
     <Compile Include="Services\Components\IUPCCodeComponent.cs" />
     <Compile Include="Services\Components\UPCCodeComponent.cs" />
     <Compile Include="Services\IUPCCodeService.cs" />
