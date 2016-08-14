@@ -4,16 +4,24 @@ using System.IO;
 using System.Threading.Tasks;
 using Foundation;
 using UIKit;
+using UrbanAirship;
+using WineTracker;
+using WineTracker.iOS;
 using Xamarin;
+using XLabs.Forms;
+using XLabs.Platform.Device;
 
 namespace WineTracker.iOS
 {
+   
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : XFormsApplicationDelegate
     {
+        // class-level declarations
+        NSObject observer;
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -23,6 +31,10 @@ namespace WineTracker.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Settings.LoadDefaultValues();
+            observer = NSNotificationCenter.DefaultCenter.AddObserver((NSString)"NSUserDefaultsDidChangeNotification", DefaultsChanged);
+            DefaultsChanged(null);
+
             Insights.HasPendingCrashReport += Insights_HasPendingCrashReport;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -39,9 +51,28 @@ namespace WineTracker.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            UAirship.TakeOff();
+            UAirship.Push.UserPushNotificationsEnabled = true;
+            var chID = UAirship.Push.ChannelID;
+            var devToken = UAirship.Push.DeviceToken;
             return base.FinishedLaunching(app, options);
         }
 
+        /// <summary>
+        /// This method is called when the application is about to terminate. Save data, if needed.
+        /// </summary>
+        /// <seealso cref="XFormsApplicationDelegate.DidEnterBackground"/>
+        public override void WillTerminate(UIApplication application)
+        {
+            if (observer == null) return;
+            NSNotificationCenter.DefaultCenter.RemoveObserver(observer);
+            observer = null;
+        }
+
+        private void DefaultsChanged(NSNotification obj)
+        {
+            Settings.SetupByPreferences();
+        }
         private void Insights_HasPendingCrashReport(object sender, bool isStartupCrash)
         {
           

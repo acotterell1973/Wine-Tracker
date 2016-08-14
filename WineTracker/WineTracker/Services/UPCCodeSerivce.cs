@@ -2,6 +2,7 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Akavache;
+using Plugin.Geolocator.Abstractions;
 using WineTracker.Models;
 using WineTracker.Services.Components;
 
@@ -25,8 +26,18 @@ namespace WineTracker.Services
                 key,
                 async () =>
                 {
-                    var result = await _upcCodeComponent.GetProductByUpcCode(cancellationToken, code);
-                    return result;
+                    var upcInfoTask =  _upcCodeComponent.GetProductByUpcCode(cancellationToken, code);
+                    var positionTask =  _upcCodeComponent.GetCurentLocation(cancellationToken);
+
+                    await  Task.WhenAll(upcInfoTask, positionTask);
+                    var upcInfo = upcInfoTask.Result;
+                    var position = positionTask.Result;
+
+                    if (position != null)
+                        upcInfo.ScannedText =
+                            $"Time: {position.Timestamp} \nLat: {position.Latitude} \nLong: {position.Longitude} \n Altitude: {position.Altitude} \nAltitude Accuracy: {position.AltitudeAccuracy} \nAccuracy: {position.Accuracy} \n Heading: {position.Heading} \n Speed: {position.Speed}";
+                    return upcInfo;
+
                 }, null, null);
 
             return productInfo;

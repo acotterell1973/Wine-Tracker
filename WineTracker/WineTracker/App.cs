@@ -8,6 +8,8 @@ using WineTracker.Services.Components;
 using WineTracker.Services.Components.ExternalServices;
 using WineTracker.ViewModels;
 using Xamarin.Forms;
+using XLabs.Ioc;
+using XLabs.Platform.Device;
 using Constants = WineTracker.Helpers.Constants;
 
 namespace WineTracker
@@ -16,6 +18,13 @@ namespace WineTracker
     {
         public App()
         {
+            var container = new SimpleContainer();
+          
+
+         //   FreshIOC.Container.Register<IDevice, AppleDevice.CurrentDevice>();
+
+          //  var device = FreshIOC.Container.Resolve<IDevice>();
+         //   var deviceId = device.Id;
             RegisterDependancies();
             RegisterRootNavigation();
         }

@@ -5,13 +5,10 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
-		<integer>2</integer>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -21,11 +18,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>7.0</string>
+	<string>9.3</string>
 	<key>CFBundleDisplayName</key>
-	<string>WineTracker</string>
+	<string>Wine Hunter</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.techverse.True-Auto-Shops</string>
+	<string>com.eros-agape.wine-hunter</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
@@ -47,5 +44,16 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleShortVersionString</key>
 	<string></string>
+	<key>RequestWhenInUseAuthorization</key>
+	<string>Need location for geolocator plugin.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This application requires location services to work</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This application requires location services to work</string>
+	<key>UIBackgroundModes</key> 
+ 	<array> 
+ 		<string>remote-notification</string> 
+ 	</array> 
+
 </dict>
 </plist>
