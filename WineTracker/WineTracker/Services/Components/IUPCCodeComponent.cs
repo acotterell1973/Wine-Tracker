@@ -10,5 +10,9 @@ namespace WineTracker.Services.Components
     {
         Task<Position> GetCurentLocation(CancellationToken cancellationToken);
         Task<ProductInfo> GetProductByUpcCode(CancellationToken cancellationToken, string upccode);
+
+        Task<GeoCode> GetAddressesByGeoCode(CancellationToken cancellationToken, string lat, string longt);
+
+
     }
 }

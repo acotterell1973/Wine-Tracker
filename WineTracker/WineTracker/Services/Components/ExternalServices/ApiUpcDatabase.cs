@@ -18,17 +18,20 @@ namespace WineTracker.Services.Components.ExternalServices
 
         [Get("/prod/trial/lookup?upc={upc}")]
         Task<UpcItemDb> UpcItemDb(string upc);
+
+        [Get("/api/wine/{upc}")]
+        Task<WineItemInfo> GetWineInfoByUpc(string upc);
     }
 
 
     public class ApiUpcDatabase : IApiUpcDatabase
     {
-        private HttpClient client;
+        private readonly HttpClient _client;
         private IUpcDatabase _upcDatabaseApi;
 
         public ApiUpcDatabase()
         {
-            client = FreshTinyIoC.FreshTinyIoCContainer.Current.Resolve<HttpClient>();
+            _client = FreshTinyIoC.FreshTinyIoCContainer.Current.Resolve<HttpClient>();
 
         }
 
@@ -42,9 +45,23 @@ namespace WineTracker.Services.Components.ExternalServices
         {
 
             var productInfo = new ProductInfo();
-            client.BaseAddress = new Uri("http://api.upcdatabase.org/json");
-            _upcDatabaseApi = RestService.For<IUpcDatabase>(client);
+
+            _client.BaseAddress = new Uri("http://apiwinehunter.azurewebsites.net");
+            _upcDatabaseApi = RestService.For<IUpcDatabase>(_client);
+            var wineHunterDatabase = await _upcDatabaseApi.GetWineInfoByUpc(upc);
+
+            if (wineHunterDatabase?.UpcCode != null)
+            {
+                productInfo.itemname = wineHunterDatabase.WineName;
+                productInfo.description = wineHunterDatabase.Winery;
+
+                return productInfo;
+            }
+
+            _client.BaseAddress = new Uri("http://api.upcdatabase.org/json");
+            _upcDatabaseApi = RestService.For<IUpcDatabase>(_client);
             var upcdatabase = await _upcDatabaseApi.GetInfoByUpc(upc);
+
             if (upcdatabase?.itemname != null)
             {
                 productInfo.itemname = upcdatabase.itemname;
@@ -53,17 +70,14 @@ namespace WineTracker.Services.Components.ExternalServices
                 return productInfo;
             }
 
-            client.BaseAddress = new Uri("https://api.upcitemdb.com");
-            _upcDatabaseApi = RestService.For<IUpcDatabase>(client);
+            //_client.BaseAddress = new Uri("https://api.upcitemdb.com");
+            //_upcDatabaseApi = RestService.For<IUpcDatabase>(_client);
             var upcItemDb = await _upcDatabaseApi.UpcItemDb(upc);
 
-            if (upcItemDb != null)
-            {
-                productInfo.itemname = upcItemDb.items.First().title;
-                productInfo.description = upcItemDb.items.First().description;
+            if (upcItemDb == null || !upcItemDb.items.Any()) return productInfo;
 
-                return productInfo;
-            }
+            productInfo.itemname = upcItemDb.items.First().title;
+            productInfo.description = upcItemDb.items.First().description;
 
             return productInfo;
         } 

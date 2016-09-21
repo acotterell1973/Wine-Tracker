@@ -3,6 +3,8 @@ using FreshMvvm;
 using Tesseract;
 using Tesseract.iOS;
 using WineTracker.Helpers;
+using WineTracker.NavigationService;
+using WineTracker.Pages;
 using WineTracker.Services;
 using WineTracker.Services.Components;
 using WineTracker.Services.Components.ExternalServices;
@@ -16,30 +18,35 @@ namespace WineTracker
 {
     public class App : Application
     {
+
+
         public App()
         {
-            var container = new SimpleContainer();
-          
-
-         //   FreshIOC.Container.Register<IDevice, AppleDevice.CurrentDevice>();
-
-          //  var device = FreshIOC.Container.Resolve<IDevice>();
-         //   var deviceId = device.Id;
             RegisterDependancies();
             RegisterRootNavigation();
         }
         private void RegisterRootNavigation()
         {
-            var page = FreshPageModelResolver.ResolvePageModel<ScanProductViewModel>();
-            var logginNavigation = new FreshNavigationContainer(page, Constants.LoginNavigationService);
-        
-            MainPage = logginNavigation;
+
+            FreshTabbedNavigationContainer tabbedNavigations = CreateTabbedPage();
+            var startPage = tabbedNavigations;
+            var dashboard = FreshPageModelResolver.ResolvePageModel<DashboardViewModel>();
+            var basicNavContainer = new FreshNavigationContainer(dashboard);
+            MainPage = basicNavContainer;
+        }
+        private FreshTabbedNavigationContainer CreateTabbedPage()
+        {
+            var tabbedNavigations = new FreshTabbedNavigationContainer();
+            tabbedNavigations.AddTab<ScanProductViewModel>("Hunt", "");
+            tabbedNavigations.AddTab<ScanProductViewModel>("History", "");
+            return tabbedNavigations;
         }
         private static void RegisterDependancies()
         {
- 
+
             Akavache.BlobCache.ApplicationName = Constants.CacheName;
             FreshIOC.Container.Register<IApiUpcDatabase, ApiUpcDatabase>();
+            FreshIOC.Container.Register<IApiGooglePlacesDatabase, ApiGooglePlacesDatabase>();
             FreshIOC.Container.Register<ITesseractApi, TesseractApi>();
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();

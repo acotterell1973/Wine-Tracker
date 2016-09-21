@@ -1,0 +1,14 @@
+source db: http://bottlecount.com/UPCDB/931216310007/
+source db: http://www.cellartracker.com/wine.asp?iWine=1584904
+
+Features to add:
+
+a. Upc lookup
+b. geo location
+c. address look up
+d. create database of search results
+e. create a micro-service scrap upc info
+
+1. Group By Wine Category
+2. Show alcholog content levels
+3. Manual Enter Wine Name and return a list to select from.

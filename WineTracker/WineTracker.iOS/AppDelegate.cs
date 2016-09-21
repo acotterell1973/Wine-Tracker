@@ -5,11 +5,7 @@ using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using UrbanAirship;
-using WineTracker;
-using WineTracker.iOS;
 using Xamarin;
-using XLabs.Forms;
-using XLabs.Platform.Device;
 
 namespace WineTracker.iOS
 {
@@ -18,7 +14,7 @@ namespace WineTracker.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : XFormsApplicationDelegate
+    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
         // class-level declarations
         NSObject observer;
@@ -58,10 +54,7 @@ namespace WineTracker.iOS
             return base.FinishedLaunching(app, options);
         }
 
-        /// <summary>
-        /// This method is called when the application is about to terminate. Save data, if needed.
-        /// </summary>
-        /// <seealso cref="XFormsApplicationDelegate.DidEnterBackground"/>
+   
         public override void WillTerminate(UIApplication application)
         {
             if (observer == null) return;

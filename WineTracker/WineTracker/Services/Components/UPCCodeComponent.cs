@@ -15,10 +15,12 @@ namespace WineTracker.Services.Components
     public class UpcCodeComponent : ComponentBase, IUpcCodeComponent
     {
         private readonly IApiUpcDatabase _apiUpcDatabase;
+        private readonly IApiGooglePlacesDatabase _apiGooglePlacesDatabase;
 
-        public UpcCodeComponent(IApiUpcDatabase apiUpcDatabase)
+        public UpcCodeComponent(IApiUpcDatabase apiUpcDatabase, IApiGooglePlacesDatabase apiGooglePlacesDatabase)
         {
             _apiUpcDatabase = apiUpcDatabase;
+            _apiGooglePlacesDatabase = apiGooglePlacesDatabase;
         }
 
         public async Task<Position> GetCurentLocation(CancellationToken cancellationToken)
@@ -70,6 +72,36 @@ namespace WineTracker.Services.Components
             }
 
             return null;
+        }
+
+        public async Task<GeoCode> GetAddressesByGeoCode(CancellationToken cancellationToken, string lat, string longt)
+        {
+            var policy = Policy.Handle<Exception>().RetryAsync(3, (exception, attempt) =>
+            {
+                Insights.Report(exception, new Dictionary<string, string>
+                {
+                    { "Number Of Attempts", attempt.ToString()},
+                    { "Latitude", lat},
+                     { "Longtitude", longt}
+                });
+            });
+            try
+            {
+                return await policy.ExecuteAsync(async () =>
+                {
+                    using (Insights.TrackTime("GeoAddress", "GetAddressByGeoCodeTask", lat + "|" + longt))
+                    {
+                        return await _apiGooglePlacesDatabase.GetAddressByGeoCodeTask(lat, longt);
+                    }
+                });
+            }
+            catch (Exception exception)
+            {
+                Insights.Report(exception);
+            }
+
+            return null;
+
         }
     }
 }

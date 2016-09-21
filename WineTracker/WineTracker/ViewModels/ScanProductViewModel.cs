@@ -5,12 +5,11 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using PropertyChanged;
 using Tesseract;
-using WineTracker.Components;
 using WineTracker.Models;
 using WineTracker.PageModels;
 using WineTracker.Services;
 using Xamarin.Forms;
-
+using ZXing.Mobile;
 
 
 namespace WineTracker.ViewModels
@@ -84,7 +83,7 @@ namespace WineTracker.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+                    var scanner = new MobileBarcodeScanner();
                     var upc = await scanner.Scan();
                     Model = await QueryUpc(upc?.Text);
                 });

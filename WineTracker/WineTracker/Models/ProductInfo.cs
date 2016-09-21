@@ -29,6 +29,9 @@ namespace WineTracker.Models
         public int rate_down { get; set; }
 
         public string ScannedText { get; set; }
-    
+
+        public string Address { get; set; }
+
+
     }
 }

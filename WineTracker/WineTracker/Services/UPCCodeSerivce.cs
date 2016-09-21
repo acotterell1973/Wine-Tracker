@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,9 +34,23 @@ namespace WineTracker.Services
                     var upcInfo = upcInfoTask.Result;
                     var position = positionTask.Result;
 
-                    if (position != null)
+                    if (position == null) return upcInfo;
+
+                    //Get Address Info from GeCode
+                  var addresses = await  _upcCodeComponent.GetAddressesByGeoCode(cancellationToken, position.Latitude.ToString(), position.Longitude.ToString());
+
+                    if (upcInfo != null)
+                    {
+
+                        if (addresses != null)
+                        {
+                            upcInfo.Address = addresses.results.First().formatted_address;
+                        }
                         upcInfo.ScannedText =
-                            $"Time: {position.Timestamp} \nLat: {position.Latitude} \nLong: {position.Longitude} \n Altitude: {position.Altitude} \nAltitude Accuracy: {position.AltitudeAccuracy} \nAccuracy: {position.Accuracy} \n Heading: {position.Heading} \n Speed: {position.Speed}";
+                        $"Time: {position.Timestamp} \nLat: {position.Latitude} \nLong: {position.Longitude} \n Altitude: {position.Altitude} \nAltitude Accuracy: {position.AltitudeAccuracy} \nAccuracy: {position.Accuracy} \n Heading: {position.Heading} \n Speed: {position.Speed}";
+
+                    }
+
                     return upcInfo;
 
                 }, null, null);

@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineTracker.iOS", "WineTrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineTracker", "WineTracker\WineTracker\WineTracker.csproj", "{5D324D3C-55AC-4741-B94A-F151986AE60B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECDE3C97-27B1-44E0-89D7-4C31753A6161}"
+	ProjectSection(SolutionItems) = preProject
+		Features.txt = Features.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
