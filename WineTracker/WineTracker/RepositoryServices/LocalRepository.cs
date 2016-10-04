@@ -1,14 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin;
 
-namespace WineTracker.Services.Components
+namespace WineTracker.Services
 {
-    public class ComponentBase
+    public class LocalRepository
     {
-    
+        
     }
 }

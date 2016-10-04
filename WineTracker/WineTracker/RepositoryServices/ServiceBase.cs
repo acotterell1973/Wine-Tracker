@@ -1,12 +1,11 @@
-using System.Diagnostics;
-
-namespace WineTracker.Services
+namespace WineTracker.RepositoryServices
 {
     public class ServiceBase
     {
+
         public ServiceBase()
         {
-           
+
         }
 
     }

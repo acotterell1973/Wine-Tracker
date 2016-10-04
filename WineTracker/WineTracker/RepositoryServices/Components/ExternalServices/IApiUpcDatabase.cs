@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using WineTracker.Models;
 
-namespace WineTracker.Services.Components.ExternalServices
+namespace WineTracker.RepositoryServices.Components.ExternalServices
 {
     public interface IApiUpcDatabase
     {

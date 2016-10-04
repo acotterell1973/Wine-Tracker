@@ -39,7 +39,13 @@
     <Compile Include="App.cs" />
     <Compile Include="AsyncErrorHandler.cs" />
     <Compile Include="Components\AsynErrorHandler.cs" />
-    <Compile Include="DataModels\Items.cs" />
+    <Compile Include="Models\Bottle.cs" />
+    <Compile Include="Models\BottleImage.cs" />
+    <Compile Include="Models\BottleInfo.cs" />
+    <Compile Include="Models\Items.cs" />
+    <Compile Include="Models\BottleLocation.cs" />
+    <Compile Include="Models\BottleOccasions.cs" />
+    <Compile Include="Models\BottleWineCategory.cs" />
     <Compile Include="Extensions\ExtendedFrame.cs" />
     <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Helpers\Constants.cs" />
@@ -47,8 +53,12 @@
     <Compile Include="Interface\IClearWebViewCache.cs" />
     <Compile Include="Interface\IFileService.cs" />
     <Compile Include="Interface\IDatabaseConnection.cs" />
+    <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\ITelemetry.cs" />
     <Compile Include="Interface\KeyboardHelper.cs" />
+    <Compile Include="RepositoryServices\Components\IWineHunterComponent.cs" />
+    <Compile Include="RepositoryServices\Components\WineHunterComponent.cs" />
+    <Compile Include="RepositoryServices\Repository.cs" />
     <Compile Include="Models\GeoCode.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\UpcItemDb.cs" />
@@ -62,16 +72,16 @@
       <DependentUpon>ScanProductPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Components\ComponentBase.cs" />
-    <Compile Include="Services\Components\ExternalServices\ApiUpcDatabase.cs" />
-    <Compile Include="Services\Components\ExternalServices\ApiGooglePlacesDatabase.cs" />
-    <Compile Include="Services\Components\ExternalServices\IApiGooglePlacesDatabase.cs" />
-    <Compile Include="Services\Components\ExternalServices\IApiUpcDatabase.cs" />
-    <Compile Include="Services\Components\IUPCCodeComponent.cs" />
-    <Compile Include="Services\Components\UPCCodeComponent.cs" />
-    <Compile Include="Services\IUPCCodeService.cs" />
-    <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="Services\UPCCodeSerivce.cs" />
+    <Compile Include="RepositoryServices\Components\ComponentBase.cs" />
+    <Compile Include="RepositoryServices\Components\ExternalServices\ApiUpcDatabase.cs" />
+    <Compile Include="RepositoryServices\Components\ExternalServices\ApiGooglePlacesDatabase.cs" />
+    <Compile Include="RepositoryServices\Components\ExternalServices\IApiGooglePlacesDatabase.cs" />
+    <Compile Include="RepositoryServices\Components\ExternalServices\IApiUpcDatabase.cs" />
+    <Compile Include="RepositoryServices\Components\IUPCCodeComponent.cs" />
+    <Compile Include="RepositoryServices\Components\UPCCodeComponent.cs" />
+    <Compile Include="RepositoryServices\IUPCCodeService.cs" />
+    <Compile Include="RepositoryServices\ServiceBase.cs" />
+    <Compile Include="RepositoryServices\UPCCodeSerivce.cs" />
     <Compile Include="ViewModels\BaseNotificationHandler.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />

@@ -1,13 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Refit;
 using WineTracker.Models;
 
-namespace WineTracker.Services.Components.ExternalServices
+namespace WineTracker.RepositoryServices.Components.ExternalServices
 {
     [Headers("Accept: application/json")]
     internal interface IUpcDatabase

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using Tesseract;
 using WineTracker.Models;
 using WineTracker.PageModels;
-using WineTracker.Services;
+using WineTracker.RepositoryServices;
+using WineTracker.RepositoryServices.Components;
 using Xamarin.Forms;
 
 namespace WineTracker.ViewModels
@@ -17,13 +18,15 @@ namespace WineTracker.ViewModels
 
         private readonly IUpcCodeService _upcCodeSerivce;
         private readonly ITesseractApi _tesseractApi;
+        private readonly IWineHunterComponent _wineHunterComponent;
         CancellationTokenSource _lastCancelSource;
         
-        public DashboardViewModel(IUpcCodeService upcCodeSerivce, ITesseractApi tesseractApi)
+        public DashboardViewModel(IUpcCodeService upcCodeSerivce, ITesseractApi tesseractApi, IWineHunterComponent wineHunterComponent)
         {
 
             _upcCodeSerivce = upcCodeSerivce;
             _tesseractApi = tesseractApi;
+            _wineHunterComponent = wineHunterComponent;
         }
 
         public override void Init(object initData)

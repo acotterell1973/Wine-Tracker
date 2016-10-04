@@ -6,11 +6,12 @@ using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using Polly;
 using WineTracker.Models;
-using WineTracker.Services.Components.ExternalServices;
+using WineTracker.RepositoryServices.Components.ExternalServices;
 using Xamarin;
+
 // ReSharper disable ImplicitlyCapturedClosure
 
-namespace WineTracker.Services.Components
+namespace WineTracker.RepositoryServices.Components
 {
     public class UpcCodeComponent : ComponentBase, IUpcCodeComponent
     {

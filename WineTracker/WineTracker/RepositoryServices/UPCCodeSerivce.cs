@@ -3,11 +3,10 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Akavache;
-using Plugin.Geolocator.Abstractions;
 using WineTracker.Models;
-using WineTracker.Services.Components;
+using WineTracker.RepositoryServices.Components;
 
-namespace WineTracker.Services
+namespace WineTracker.RepositoryServices
 {
     public class UpcCodeSerivce : IUpcCodeService
     {

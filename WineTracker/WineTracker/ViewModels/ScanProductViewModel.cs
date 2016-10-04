@@ -7,7 +7,8 @@ using PropertyChanged;
 using Tesseract;
 using WineTracker.Models;
 using WineTracker.PageModels;
-using WineTracker.Services;
+using WineTracker.RepositoryServices;
+using WineTracker.RepositoryServices.Components;
 using Xamarin.Forms;
 using ZXing.Mobile;
 
@@ -19,13 +20,15 @@ namespace WineTracker.ViewModels
     {
         private readonly IUpcCodeService _upcCodeSerivce;
         private readonly ITesseractApi _tesseractApi;
+        private readonly IWineHunterComponent _wineHunterComponent;
         CancellationTokenSource _lastCancelSource;
         private Image _takenImage;
 
-        public ScanProductViewModel(IUpcCodeService upcCodeSerivce, ITesseractApi tesseractApi)
+        public ScanProductViewModel(IUpcCodeService upcCodeSerivce, ITesseractApi tesseractApi, IWineHunterComponent wineHunterComponent)
         {
             _upcCodeSerivce = upcCodeSerivce;
             _tesseractApi = tesseractApi;
+            _wineHunterComponent = wineHunterComponent;
         }
 
         public override void Init(object initData)
@@ -83,6 +86,7 @@ namespace WineTracker.ViewModels
             {
                 return new Command(async () =>
                 {
+                    var counts = await _wineHunterComponent.GetWineCount();
                     var scanner = new MobileBarcodeScanner();
                     var upc = await scanner.Scan();
                     Model = await QueryUpc(upc?.Text);

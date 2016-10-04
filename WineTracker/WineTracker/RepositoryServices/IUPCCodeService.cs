@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WineTracker.Models;
 
-namespace WineTracker.Services
+namespace WineTracker.RepositoryServices
 {
     public interface IUpcCodeService
     {

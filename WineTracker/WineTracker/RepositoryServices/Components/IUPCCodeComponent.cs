@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using Plugin.Geolocator.Abstractions;
 using WineTracker.Models;
 
-
-namespace WineTracker.Services.Components
+namespace WineTracker.RepositoryServices.Components
 {
     public interface IUpcCodeComponent
     {

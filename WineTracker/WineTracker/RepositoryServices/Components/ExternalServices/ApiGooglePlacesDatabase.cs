@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Refit;
 using WineTracker.Models;
 
-namespace WineTracker.Services.Components.ExternalServices
+namespace WineTracker.RepositoryServices.Components.ExternalServices
 {
     [Headers("Accept: application/json")]
     internal interface IGeoCodeDatabase

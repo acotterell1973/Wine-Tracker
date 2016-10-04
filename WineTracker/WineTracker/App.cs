@@ -3,11 +3,12 @@ using FreshMvvm;
 using Tesseract;
 using Tesseract.iOS;
 using WineTracker.Helpers;
+using WineTracker.Interface;
 using WineTracker.NavigationService;
 using WineTracker.Pages;
-using WineTracker.Services;
-using WineTracker.Services.Components;
-using WineTracker.Services.Components.ExternalServices;
+using WineTracker.RepositoryServices;
+using WineTracker.RepositoryServices.Components;
+using WineTracker.RepositoryServices.Components.ExternalServices;
 using WineTracker.ViewModels;
 using Xamarin.Forms;
 using XLabs.Ioc;
@@ -30,7 +31,7 @@ namespace WineTracker
 
             FreshTabbedNavigationContainer tabbedNavigations = CreateTabbedPage();
             var startPage = tabbedNavigations;
-            var dashboard = FreshPageModelResolver.ResolvePageModel<DashboardViewModel>();
+            var dashboard = FreshPageModelResolver.ResolvePageModel<ScanProductViewModel>();
             var basicNavContainer = new FreshNavigationContainer(dashboard);
             MainPage = basicNavContainer;
         }
@@ -48,6 +49,7 @@ namespace WineTracker
             FreshIOC.Container.Register<IApiUpcDatabase, ApiUpcDatabase>();
             FreshIOC.Container.Register<IApiGooglePlacesDatabase, ApiGooglePlacesDatabase>();
             FreshIOC.Container.Register<ITesseractApi, TesseractApi>();
+            FreshIOC.Container.Register<IWineHunterComponent, WineHunterComponent>();
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();
             FreshIOC.Container.Register(HttpClientConnector.Instance);
