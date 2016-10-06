@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using PropertyChanged;
 using SQLite;
 
 namespace WineTracker.Models
 {
+    [ImplementPropertyChanged]
     [Table("Bottles")]
     public class Bottle : INotifyPropertyChanged
     {
@@ -125,25 +127,26 @@ namespace WineTracker.Models
 
 
         [NotNull]
-        public string Name
-        {
-            get
-            {
-                string value = _name;
-                return value;
-            }
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _name;
+        public string Variety { get; set; }
 
         [NotNull]
+        public int Vintage { get; set; }
+
+        [NotNull]
+        public string Producer { get; set; }
+
+        [NotNull]
+        public string Region { get; set; }
+
+   
+        public decimal AlcoholLevel { get; set; }
+
+
+        public decimal Sulphites { get; set; }
+
+        public decimal Size { get; set; }
+
+       
         public string UserName
         {
             get
@@ -161,44 +164,6 @@ namespace WineTracker.Models
             }
         }
         private string _userName;
-
-        [NotNull]
-        public int Year
-        {
-            get
-            {
-                int value = _year;
-                return value;
-            }
-            set
-            {
-                if (_year != value)
-                {
-                    _year = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private int _year;
-
-        [NotNull]
-        public string Winery
-        {
-            get
-            {
-                string value = _winery;
-                return value;
-            }
-            set
-            {
-                if (_winery != value)
-                {
-                    _winery = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _winery;
 
         [NotNull]
         public bool Sync

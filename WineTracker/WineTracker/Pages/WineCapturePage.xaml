@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:EditPage xmlns:local="clr-namespace:WineTracker.Pages;assembly=WineTracker"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
+            
+                x:Class="WineTracker.Pages.WineCapturePage" BackgroundColor="#e2e1df" Title="The Capture">
+  <local:EditPage.ToolbarItems>
+    <ToolbarItem Text="Save" Priority="0" Order="Primary" />
+    <ToolbarItem Text="Cancel" Priority="1" Order="Primary" Command="{Binding CancelCommand}" />
+  </local:EditPage.ToolbarItems>
+
+
+  <local:EditPage.Content>
+    <StackLayout Margin="5,5,5,5" Padding="5,5,5,5">
+      <freshEssentials:AdvancedFrame Corners="all" CornerRadius="5" InnerBackground="#ffff" OutlineColor="#ffff"
+                                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand" >
+        <StackLayout>
+          <StackLayout>
+            <Image></Image>
+          </StackLayout>
+          <StackLayout>
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+
+              <Label Grid.Row="0" Grid.Column="0"  Text="The Producer"></Label>
+              <Label Grid.Row="1" Grid.Column="0"  Text="The Vintage"></Label>
+              <Label Grid.Row="2" Grid.Column="0"  Text="The Variety"></Label>
+              <Label Grid.Row="3" Grid.Column="0"  Text="The Region"></Label>
+              <Label Grid.Row="4" Grid.Column="0"  Text="Sulphites"></Label>
+              <Label Grid.Row="5" Grid.Column="0"  Text="Alcohol Level"></Label>
+
+              <Entry Grid.Row="0" Grid.Column="1"  Text="The Producer"></Entry>
+              <Entry Grid.Row="1" Grid.Column="1"  Text="The Vintage"></Entry>
+              <Entry Grid.Row="2" Grid.Column="1"  Text="The Variety"></Entry>
+              <Entry Grid.Row="3" Grid.Column="1"  Text="The Region"></Entry>
+              <Entry Grid.Row="4" Grid.Column="1"  Text="Sulphites"></Entry>
+              <Entry Grid.Row="5" Grid.Column="1"  Text="Alcohol Level"></Entry>
+            </Grid>
+          </StackLayout>
+          <StackLayout BackgroundColor="#cccccc" HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" >
+            <ListView SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" ItemsSource="{Binding Locations.results }" >
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                      <Label Text="{Binding formatted_address}" />
+                      <Label Text="{Binding vicinity}" />
+                      <Label Text="{Binding name}" />
+                    </StackLayout>
+                  </ViewCell>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </StackLayout>
+
+        </StackLayout>
+
+      </freshEssentials:AdvancedFrame>
+
+    </StackLayout>
+
+  </local:EditPage.Content>
+
+</local:EditPage>
+

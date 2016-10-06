@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using Tesseract;
 using WineTracker.Models;
 using WineTracker.PageModels;
@@ -32,8 +27,21 @@ namespace WineTracker.ViewModels
         public override void Init(object initData)
         {
             base.Init(initData);
-            Model = new ProductInfo { number = "7572000081" };
+            Model = new ProductInfo();
         }
 
+
+        #region Commands
+        public Command AddWineCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await CoreMethods.PushPageModel<WineCaptureViewModel>();
+                });
+            }
+        }
+        #endregion
     }
 }

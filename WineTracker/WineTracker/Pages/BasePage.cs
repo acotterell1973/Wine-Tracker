@@ -11,10 +11,10 @@ namespace WineTracker.Pages
     {
         public BasePage()
         {
-            ToolbarItems.Add(new ToolbarItem("Home", "Home.png", () =>
-            {
-                Application.Current.MainPage = new NavigationPage();
-            }));
+            //ToolbarItems.Add(new ToolbarItem("Wine Capture", "Plus-30.png", () =>
+            //{
+            //    Application.Current.MainPage = new WineCapturePage();
+            //}));
         }
 
         protected override void OnAppearing()

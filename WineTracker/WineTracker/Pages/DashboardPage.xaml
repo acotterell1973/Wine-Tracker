@@ -2,9 +2,19 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WineTracker.Pages;assembly=WineTracker"
-             x:Class="WineTracker.Pages.DashboardPage" BackgroundColor="#e2e1df" Title="Dashboard">
+             xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
+             x:Class="WineTracker.Pages.DashboardPage" BackgroundColor="#e2e1df" Title="Wine Hunter">
+  <local:BasePage.ToolbarItems>
+    <ToolbarItem Priority="0" Icon="Plus-30.png" Order="Primary" Command="{Binding AddWineCommand}" />
+  </local:BasePage.ToolbarItems>
   <local:BasePage.Content>
-    <StackLayout Margin="10,10,10,10" Padding="5,5,5,5">
+    <StackLayout Margin="5,5,5,5" Padding="5,5,5,5">
+      <freshEssentials:AdvancedFrame Corners="all" CornerRadius="5" InnerBackground="#ffff" OutlineColor="#ffff"
+                                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand" >
+        <Label Text="Corners is left, CornerRadius is 10, InnerBackground is Blue" TextColor="White"/>
+      </freshEssentials:AdvancedFrame>
+
       <Frame>
         <StackLayout HorizontalOptions="FillAndExpand"
                      VerticalOptions="FillAndExpand"
@@ -21,7 +31,7 @@
                      BackgroundColor="#ffff">
 
 
-        </StackLayout>        
+        </StackLayout>
       </Frame>
       <Frame>
         <StackLayout HorizontalOptions="FillAndExpand"

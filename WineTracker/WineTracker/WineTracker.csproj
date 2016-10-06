@@ -42,6 +42,7 @@
     <Compile Include="Models\Bottle.cs" />
     <Compile Include="Models\BottleImage.cs" />
     <Compile Include="Models\BottleInfo.cs" />
+    <Compile Include="Models\GeoPlaces.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\BottleLocation.cs" />
     <Compile Include="Models\BottleOccasions.cs" />
@@ -56,6 +57,15 @@
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\ITelemetry.cs" />
     <Compile Include="Interface\KeyboardHelper.cs" />
+    <Compile Include="NavigationService\MenuItem.cs" />
+    <Compile Include="NavigationService\ThemedMasterDetailNavigationContainer.cs" />
+    <Compile Include="Pages\EditPage.cs" />
+    <Compile Include="Pages\WineCapturePage.xaml.cs">
+      <DependentUpon>WineCapturePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RepositoryServices\Components\ExternalServices\IApiGooglePlacesDatabase.cs" />
+    <Compile Include="RepositoryServices\Components\GeoLocationComponent.cs" />
+    <Compile Include="RepositoryServices\Components\IGeoLocationComponent.cs" />
     <Compile Include="RepositoryServices\Components\IWineHunterComponent.cs" />
     <Compile Include="RepositoryServices\Components\WineHunterComponent.cs" />
     <Compile Include="RepositoryServices\Repository.cs" />
@@ -75,7 +85,6 @@
     <Compile Include="RepositoryServices\Components\ComponentBase.cs" />
     <Compile Include="RepositoryServices\Components\ExternalServices\ApiUpcDatabase.cs" />
     <Compile Include="RepositoryServices\Components\ExternalServices\ApiGooglePlacesDatabase.cs" />
-    <Compile Include="RepositoryServices\Components\ExternalServices\IApiGooglePlacesDatabase.cs" />
     <Compile Include="RepositoryServices\Components\ExternalServices\IApiUpcDatabase.cs" />
     <Compile Include="RepositoryServices\Components\IUPCCodeComponent.cs" />
     <Compile Include="RepositoryServices\Components\UPCCodeComponent.cs" />
@@ -86,6 +95,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ScanProductViewModel.cs" />
+    <Compile Include="ViewModels\WineCaptureViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -151,6 +161,10 @@
     </Reference>
     <Reference Include="Refit, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\refit.2.4.1\lib\Portable-Net45+NetCore45+WP8+WPA81\Refit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SlideOverKit, Version=1.0.6102.31331, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SlideOverKit.2.1.3\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SlideOverKit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -263,6 +277,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\DashboardPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\WineCapturePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

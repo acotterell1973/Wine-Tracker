@@ -62,7 +62,7 @@ namespace WineTracker.Models
         public Bounds bounds { get; set; }
     }
 
-    public class Result
+    public partial class Result
     {
         public List<AddressComponent> address_components { get; set; }
         public string formatted_address { get; set; }

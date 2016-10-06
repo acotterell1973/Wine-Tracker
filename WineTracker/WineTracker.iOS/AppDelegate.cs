@@ -51,6 +51,7 @@ namespace WineTracker.iOS
             UAirship.Push.UserPushNotificationsEnabled = true;
             var chID = UAirship.Push.ChannelID;
             var devToken = UAirship.Push.DeviceToken;
+            new FreshEssentials.iOS.AdvancedFrameRendereriOS();
             return base.FinishedLaunching(app, options);
         }
 

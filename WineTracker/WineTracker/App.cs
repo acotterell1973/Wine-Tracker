@@ -28,20 +28,14 @@ namespace WineTracker
         }
         private void RegisterRootNavigation()
         {
+            var masterDetail = new ThemedMasterDetailNavigationContainer();
+            masterDetail.Init("Menu", "Menu-30.png");
 
-            FreshTabbedNavigationContainer tabbedNavigations = CreateTabbedPage();
-            var startPage = tabbedNavigations;
-            var dashboard = FreshPageModelResolver.ResolvePageModel<ScanProductViewModel>();
-            var basicNavContainer = new FreshNavigationContainer(dashboard);
-            MainPage = basicNavContainer;
+            masterDetail.AddPageWithIcon<DashboardViewModel>("Home", "Plus-30.png");
+
+            MainPage = masterDetail;
         }
-        private FreshTabbedNavigationContainer CreateTabbedPage()
-        {
-            var tabbedNavigations = new FreshTabbedNavigationContainer();
-            tabbedNavigations.AddTab<ScanProductViewModel>("Hunt", "");
-            tabbedNavigations.AddTab<ScanProductViewModel>("History", "");
-            return tabbedNavigations;
-        }
+
         private static void RegisterDependancies()
         {
 
@@ -50,6 +44,8 @@ namespace WineTracker
             FreshIOC.Container.Register<IApiGooglePlacesDatabase, ApiGooglePlacesDatabase>();
             FreshIOC.Container.Register<ITesseractApi, TesseractApi>();
             FreshIOC.Container.Register<IWineHunterComponent, WineHunterComponent>();
+            FreshIOC.Container.Register<IGeoLocationComponent, GeoLocationComponent>();
+            
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();
             FreshIOC.Container.Register(HttpClientConnector.Instance);
