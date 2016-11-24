@@ -13,7 +13,7 @@ using Result = WineTracker.Models.Result;
 namespace WineTracker.ViewModels
 {
     [ImplementPropertyChanged]
-    public class WineCaptureViewModel : BaseViewModel<BottleInfo>
+    public class WineCaptureViewModel : BaseViewModel<WineItemInfo>
     {
         private readonly IUpcCodeService _upcCodeSerivce;
     //    private readonly ITesseractApi _tesseractApi;
@@ -32,10 +32,11 @@ namespace WineTracker.ViewModels
             _cancellationToken = new CancellationTokenSource();
 
         }
-        public override void Init(object initData)
+        public override  void Init(object initData)
         {
             base.Init(initData);
-            Model = new BottleInfo();
+            Model = new WineItemInfo();
+           
             Task.Run(async () =>
             {
                 var position = await _geoLocationComponent.GetCurentLocation(_cancellationToken.Token);
@@ -45,8 +46,13 @@ namespace WineTracker.ViewModels
 
                 //Get Address Info from GeCode
                 Locations = await _geoLocationComponent.GetNearByPlacesTask(_cancellationToken.Token, position.Latitude.ToString(), position.Longitude.ToString());
-
+                //Device.BeginInvokeOnMainThread(() =>
+                //{
+                //    ScanbarCode.Execute(null);
+                //});
+                Model = await QueryUpc("0010986007634");
             }, _cancellationToken.Token);
+
             
         }
 
@@ -74,7 +80,7 @@ namespace WineTracker.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var counts = await _wineHunterComponent.GetWineCount();
+                //    var counts = await _wineHunterComponent.GetWineCount();
                     var scanner = new MobileBarcodeScanner();
                     var upc = await scanner.Scan();
                     Model = await QueryUpc(upc?.Text);
@@ -95,16 +101,16 @@ namespace WineTracker.ViewModels
         #endregion
 
         #region Helpers
-        private async Task<BottleInfo> QueryUpc(string upc)
+        private async Task<WineItemInfo> QueryUpc(string upc)
         {
-            Model.Bottle.Upc = upc;
+            Model.Upc = upc;
             _cancellationToken?.Cancel();
 
             // Perform the _search
             _cancellationToken = new CancellationTokenSource();
             var cancellationToken = _cancellationToken.Token;
-            var product = await _upcCodeSerivce.GetProductByUpcCode(cancellationToken, upc);
-            var bottleInfo = new BottleInfo();
+            var bottleInfo = await _upcCodeSerivce.GetProductByUpcCode(cancellationToken, upc);
+         
             return bottleInfo;
         }
         #endregion

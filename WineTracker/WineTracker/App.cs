@@ -3,16 +3,12 @@ using FreshMvvm;
 using Tesseract;
 using Tesseract.iOS;
 using WineTracker.Helpers;
-using WineTracker.Interface;
 using WineTracker.NavigationService;
-using WineTracker.Pages;
 using WineTracker.RepositoryServices;
 using WineTracker.RepositoryServices.Components;
 using WineTracker.RepositoryServices.Components.ExternalServices;
 using WineTracker.ViewModels;
 using Xamarin.Forms;
-using XLabs.Ioc;
-using XLabs.Platform.Device;
 using Constants = WineTracker.Helpers.Constants;
 
 namespace WineTracker

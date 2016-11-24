@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UIKit;
 using WineTracker.iOS.Renderers;
 using WineTracker.Pages;
@@ -30,13 +31,29 @@ namespace WineTracker.iOS.Renderers
 
                 if (itemPriority == 1)
                 {
-                    UIBarButtonItem leftNavItems = navigationItem.RightBarButtonItems[i];
-                    leftNavList.Add(leftNavItems);
+                    try
+                    {
+                        UIBarButtonItem leftNavItems = navigationItem.RightBarButtonItems[i];
+                        leftNavList.Add(leftNavItems);
+                    }
+                    catch (Exception)
+                    {
+                    }
+        
                 }
                 else if (itemPriority == 0)
                 {
-                    UIBarButtonItem rightNavItems = navigationItem.RightBarButtonItems[i];
-                    rightNavList.Add(rightNavItems);
+                    try
+                    {
+                        UIBarButtonItem rightNavItems = navigationItem.RightBarButtonItems[i];
+                        rightNavList.Add(rightNavItems);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+             
+            
                 }
             }
 

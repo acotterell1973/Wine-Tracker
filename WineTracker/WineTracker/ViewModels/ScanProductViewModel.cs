@@ -16,7 +16,7 @@ using ZXing.Mobile;
 namespace WineTracker.ViewModels
 {
     [ImplementPropertyChanged]
-    public class ScanProductViewModel : BaseViewModel<ProductInfo>
+    public class ScanProductViewModel : BaseViewModel<WineItemInfo>
     {
         private readonly IUpcCodeService _upcCodeSerivce;
         private readonly ITesseractApi _tesseractApi;
@@ -34,7 +34,7 @@ namespace WineTracker.ViewModels
         public override void Init(object initData)
         {
             base.Init(initData);
-            Model = new ProductInfo { number = "7572000081" };
+            Model = new WineItemInfo { Upc = "7572000081" };
         }
 
         #region Helpers
@@ -54,9 +54,9 @@ namespace WineTracker.ViewModels
 
             return mediaFile;
         }
-        private async Task<ProductInfo> QueryUpc(string upc)
+        private async Task<WineItemInfo> QueryUpc(string upc)
         {
-            Model.number = upc;
+            Model.Upc = upc;
             _lastCancelSource?.Cancel();
 
             // Perform the _search
@@ -74,7 +74,7 @@ namespace WineTracker.ViewModels
                 return new Command(async () =>
                 {
                     IsBusy = true;
-                    if (Model != null) Model = await QueryUpc(Model.number);
+                    if (Model != null) Model = await QueryUpc(Model.Upc);
                     IsBusy = false;
                 });
             }
@@ -118,7 +118,7 @@ namespace WineTracker.ViewModels
                             var tessResult = await _tesseractApi.SetImage(imageBytes);
                             if (tessResult)
                             {
-                                Model.ScannedText = _tesseractApi.Text;
+                                Model.Variety = _tesseractApi.Text;
                             }
                         }
                     }

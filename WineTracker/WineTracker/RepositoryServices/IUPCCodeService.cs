@@ -6,6 +6,6 @@ namespace WineTracker.RepositoryServices
 {
     public interface IUpcCodeService
     {
-        Task<ProductInfo> GetProductByUpcCode(CancellationToken cancellationToken, string code);
+        Task<WineItemInfo> GetProductByUpcCode(CancellationToken cancellationToken, string code);
     }
 }

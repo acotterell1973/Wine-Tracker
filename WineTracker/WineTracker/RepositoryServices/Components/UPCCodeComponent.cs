@@ -47,7 +47,7 @@ namespace WineTracker.RepositoryServices.Components
 
             return null;
         }
-        public async Task<ProductInfo> GetProductByUpcCode(CancellationToken cancellationToken, string upccode)
+        public async Task<WineItemInfo> GetProductByUpcCode(CancellationToken cancellationToken, string upccode)
         {
             var policy = Policy.Handle<Exception>().RetryAsync(3, (exception, attempt) =>
             {

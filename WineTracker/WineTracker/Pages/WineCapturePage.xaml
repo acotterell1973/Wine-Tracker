@@ -36,23 +36,20 @@
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
 
-              <Label Grid.Row="0" Grid.Column="0"  Text="The Producer"></Label>
-              <Label Grid.Row="1" Grid.Column="0"  Text="The Vintage"></Label>
-              <Label Grid.Row="2" Grid.Column="0"  Text="The Variety"></Label>
-              <Label Grid.Row="3" Grid.Column="0"  Text="The Region"></Label>
-              <Label Grid.Row="4" Grid.Column="0"  Text="Sulphites"></Label>
-              <Label Grid.Row="5" Grid.Column="0"  Text="Alcohol Level"></Label>
+              <Label Grid.Row="0" Grid.Column="0"  Text="{Binding Model.Producer}"></Label>
+        
+              <Label Grid.Row="1" Grid.Column="0"  Text="{Binding Model.Variety}"></Label>
+              <Label Grid.Row="2" Grid.Column="0"  Text="{Binding Model.Region}"></Label>
 
-              <Entry Grid.Row="0" Grid.Column="1"  Text="The Producer"></Entry>
-              <Entry Grid.Row="1" Grid.Column="1"  Text="The Vintage"></Entry>
-              <Entry Grid.Row="2" Grid.Column="1"  Text="The Variety"></Entry>
-              <Entry Grid.Row="3" Grid.Column="1"  Text="The Region"></Entry>
-              <Entry Grid.Row="4" Grid.Column="1"  Text="Sulphites"></Entry>
-              <Entry Grid.Row="5" Grid.Column="1"  Text="Alcohol Level"></Entry>
+              <Image
+                  Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Aspect="AspectFit"
+                          VerticalOptions="End"
+                        
+                          HorizontalOptions="CenterAndExpand"
+                          Source="{Binding Model.ImageSource}" />
             </Grid>
           </StackLayout>
-          <StackLayout BackgroundColor="#cccccc" HorizontalOptions="FillAndExpand"
-                               VerticalOptions="FillAndExpand" >
+          <StackLayout BackgroundColor="#cccccc" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
             <ListView SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" ItemsSource="{Binding Locations.results }" >
               <ListView.ItemTemplate>
                 <DataTemplate>
@@ -67,7 +64,10 @@
               </ListView.ItemTemplate>
             </ListView>
           </StackLayout>
-
+          <StackLayout Orientation="Horizontal">
+            <Button Command="{Binding ScanbarCode}" TextColor="Black" Text="Scan Barcode" /> 
+            <Button Text="Picture" TextColor="Black" /> 
+          </StackLayout>
         </StackLayout>
 
       </freshEssentials:AdvancedFrame>

@@ -5,6 +5,6 @@ namespace WineTracker.RepositoryServices.Components.ExternalServices
 {
     public interface IApiUpcDatabase
     {
-        Task<ProductInfo> GetInfoByUpc(string upc);
+        Task<WineItemInfo> GetInfoByUpc(string upc);
     }
 }
