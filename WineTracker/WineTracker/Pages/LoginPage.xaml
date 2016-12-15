@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WineTracker.Pages;assembly=WineTracker"
+             x:Class="WineTracker.Pages.LoginPage">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Login with face" Command="{Binding FindSimilarFaceCommand}"></Button>
+            <Button Text="Login with voice" Command="{Binding FindSimilarFaceCommand}"></Button>
+            <Button Text="Register" Command="{Binding RegisterUserCommand}"></Button>
+            <Image Source="{Binding ProfileImage}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"></Image>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>

@@ -13,9 +13,6 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>9.3</string>
@@ -40,20 +37,25 @@
 		<string>Icon-Small.png</string>
 		<string>Icon-Small@2x.png</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>CFBundleShortVersionString</key>
 	<string></string>
 	<key>RequestWhenInUseAuthorization</key>
 	<string>Need location for geolocator plugin.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This application requires location services to work</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This application requires your Camera services to work</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This application requires your Microphone services to work</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This application requires your PhotoLibrary services to work</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This application requires location services to work</string>
-	<key>UIBackgroundModes</key> 
- 	<array> 
- 		<string>remote-notification</string> 
- 	</array> 
-
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 </dict>
 </plist>

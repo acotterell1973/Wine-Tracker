@@ -3,13 +3,14 @@ using FreshMvvm;
 using Tesseract;
 using Tesseract.iOS;
 using WineTracker.Helpers;
-using WineTracker.NavigationService;
 using WineTracker.RepositoryServices;
 using WineTracker.RepositoryServices.Components;
 using WineTracker.RepositoryServices.Components.ExternalServices;
 using WineTracker.ViewModels;
 using Xamarin.Forms;
 using Constants = WineTracker.Helpers.Constants;
+using WineTracker.Styles;
+using WineTracker.NavigationService;
 
 namespace WineTracker
 {
@@ -19,17 +20,24 @@ namespace WineTracker
 
         public App()
         {
+
+            DefaultStyle.InitStyles();
+            Resources = DefaultStyle.StyleDictionary;
+
             RegisterDependancies();
             RegisterRootNavigation();
         }
         private void RegisterRootNavigation()
         {
-            var masterDetail = new ThemedMasterDetailNavigationContainer();
-            masterDetail.Init("Menu", "Menu-30.png");
+             
+            var loginPage = FreshPageModelResolver.ResolvePageModel<LoginViewModel>();
+            var loginContainer = new FreshNavigationContainer(loginPage, NavigationContainerNames.AuthenticationContainer);
+            var masterDetailContainer = new ThemedMasterDetailNavigationContainer(NavigationContainerNames.MainContainer);
+            masterDetailContainer.Init("Menu", "Menu-30.png");
+            masterDetailContainer.AddPageWithIcon<DashboardViewModel>("Home", "Plus-30.png");
 
-            masterDetail.AddPageWithIcon<DashboardViewModel>("Home", "Plus-30.png");
 
-            MainPage = masterDetail;
+            MainPage = loginContainer;
         }
 
         private static void RegisterDependancies()
@@ -41,7 +49,7 @@ namespace WineTracker
             FreshIOC.Container.Register<ITesseractApi, TesseractApi>();
             FreshIOC.Container.Register<IWineHunterComponent, WineHunterComponent>();
             FreshIOC.Container.Register<IGeoLocationComponent, GeoLocationComponent>();
-            
+
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();
             FreshIOC.Container.Register(HttpClientConnector.Instance);

@@ -7,6 +7,7 @@ namespace WineTracker.Pages
     {
         public BasePage()
         {
+            Padding = new Thickness(0, 20, 0, 0);
             //ToolbarItems.Add(new ToolbarItem("Wine Capture", "Plus-30.png", () =>
             //{
             //    Application.Current.MainPage = new WineCapturePage();

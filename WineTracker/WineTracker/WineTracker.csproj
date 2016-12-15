@@ -39,9 +39,11 @@
     <Compile Include="App.cs" />
     <Compile Include="AsyncErrorHandler.cs" />
     <Compile Include="Components\AsynErrorHandler.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Models\Bottle.cs" />
     <Compile Include="Models\BottleImage.cs" />
     <Compile Include="Models\BottleInfo.cs" />
+    <Compile Include="Models\Face.cs" />
     <Compile Include="Models\GeoPlaces.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\BottleLocation.cs" />
@@ -60,6 +62,9 @@
     <Compile Include="NavigationService\MenuItem.cs" />
     <Compile Include="NavigationService\ThemedMasterDetailNavigationContainer.cs" />
     <Compile Include="Pages\EditPage.cs" />
+    <Compile Include="Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\WineCapturePage.xaml.cs">
       <DependentUpon>WineCapturePage.xaml</DependentUpon>
     </Compile>
@@ -91,10 +96,15 @@
     <Compile Include="RepositoryServices\IUPCCodeService.cs" />
     <Compile Include="RepositoryServices\ServiceBase.cs" />
     <Compile Include="RepositoryServices\UPCCodeSerivce.cs" />
+    <Compile Include="Styles\AppStyle.cs" />
+    <Compile Include="Styles\BrandColor.cs" />
+    <Compile Include="Styles\DefaultStyle.cs" />
+    <Compile Include="Styles\Styles.cs" />
     <Compile Include="ViewModels\BaseNotificationHandler.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ScanProductViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\WineCaptureViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +135,10 @@
     </Reference>
     <Reference Include="FreshMvvm, Version=1.0.6071.17008, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FreshMvvm.2.2.0\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\FreshMvvm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProjectOxford.Face, Version=1.2.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ProjectOxford.Face.1.2.1.2\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Microsoft.ProjectOxford.Face.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -296,6 +310,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\WineCapturePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -8,6 +8,10 @@ namespace WineTracker.NavigationService
     {
         readonly List<MenuItem> _pageIcons = new List<MenuItem>();
 
+        public ThemedMasterDetailNavigationContainer(string navigationServiceName) : base(navigationServiceName)
+        {
+        }
+
         public void AddPageWithIcon<T>(string title, string icon = "", object data = null) where T : FreshBasePageModel
         {
             AddPage<T>(title, data);
