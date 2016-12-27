@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using FreshMvvm;
 using Tesseract;
 using Tesseract.iOS;
 using WineTracker.Helpers;
+using WineTracker.Interface;
 using WineTracker.RepositoryServices;
 using WineTracker.RepositoryServices.Components;
 using WineTracker.RepositoryServices.Components.ExternalServices;
@@ -11,6 +13,7 @@ using Xamarin.Forms;
 using Constants = WineTracker.Helpers.Constants;
 using WineTracker.Styles;
 using WineTracker.NavigationService;
+using XLabs.Forms.Controls;
 
 namespace WineTracker
 {
@@ -22,14 +25,23 @@ namespace WineTracker
         {
 
             DefaultStyle.InitStyles();
+
             Resources = DefaultStyle.StyleDictionary;
+
+            Styles.Styles.InitStyles();
+            foreach (KeyValuePair<string, object> keyValuePair in Styles.Styles.StyleDictionary)
+            {
+                if (!Resources.ContainsKey(keyValuePair.Key))
+                    Resources.Add(keyValuePair.Key, keyValuePair.Value);
+            }
+
 
             RegisterDependancies();
             RegisterRootNavigation();
         }
         private void RegisterRootNavigation()
         {
-             
+
             var loginPage = FreshPageModelResolver.ResolvePageModel<LoginViewModel>();
             var loginContainer = new FreshNavigationContainer(loginPage, NavigationContainerNames.AuthenticationContainer);
             var masterDetailContainer = new ThemedMasterDetailNavigationContainer(NavigationContainerNames.MainContainer);
@@ -52,7 +64,9 @@ namespace WineTracker
 
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();
+            FreshIOC.Container.Register<ICognitiveService, CognitiveService>();
             FreshIOC.Container.Register(HttpClientConnector.Instance);
+
         }
 
         public async void TriggerCameraScanner()

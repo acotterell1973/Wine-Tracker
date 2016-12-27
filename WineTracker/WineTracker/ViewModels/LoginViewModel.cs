@@ -1,13 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ProjectOxford.Face;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using WineTracker.Interface;
 using WineTracker.Models;
 using WineTracker.PageModels;
 using Xamarin.Forms;
+using WineTracker.RepositoryServices;
 
 namespace WineTracker.ViewModels
 {
@@ -15,17 +16,17 @@ namespace WineTracker.ViewModels
     {
         private string _wineHunterFacialGroup = "AA08984B-01F6-40A5-B14A-8ACDFAB2BD30";
         private readonly Guid _personId = Guid.NewGuid();
-        private readonly IFaceServiceClient _faceServiceClient;
-        public LoginViewModel()
+        private readonly ICognitiveService _faceServiceClient;
+        public LoginViewModel(ICognitiveService cognitiveService)
         {
-            _faceServiceClient = new FaceServiceClient("480ad17176074072865e90a9394ae115");
+            _faceServiceClient = cognitiveService;
 
         }
         public async Task RegisterUser()
         {
-            await _faceServiceClient.CreatePersonGroupAsync(_wineHunterFacialGroup, "Wine Hunter Users");
+         //   await _faceServiceClient.CreatePersonGroupAsync(_wineHunterFacialGroup, "Wine Hunter Users");
 
-            await _faceServiceClient.TrainPersonGroupAsync(_wineHunterFacialGroup);
+          //  await _faceServiceClient.TrainPersonGroupAsync(_wineHunterFacialGroup);
 
 
         }
@@ -55,17 +56,10 @@ namespace WineTracker.ViewModels
 
             using (var stream = photo.GetStream())
             {
-                var faces = await _faceServiceClient.DetectAsync(stream);
-                if (faces == null)
-                {
-                    await _faceServiceClient.CreatePersonGroupAsync(_wineHunterFacialGroup, "Wine Hunter Users");
-                    // Step 3a - Add a face for that person.
-                    await _faceServiceClient.AddPersonFaceAsync(_wineHunterFacialGroup, _personId, stream);
-                    await _faceServiceClient.TrainPersonGroupAsync(_wineHunterFacialGroup);
-                    return true;
-                }
+                var faces = await _faceServiceClient.RegisterFacialRecognitionAsync(_personId, stream);
+             
 
-                var faceIds = faces.Select(face => face.FaceId).ToArray();
+              //  var faceIds = faces.Select(face => face.FaceId).ToArray();
                 // Step 4b - Identify the person in the photo, based on the face.
                 //     var results = await _faceServiceClient.IdentifyAsync(_wineHunterFacialGroup, faceIds);
                 //    var result = results[0].Candidates[0].PersonId;
@@ -80,13 +74,23 @@ namespace WineTracker.ViewModels
         public ImageSource ProfileImage { set; get; }
 
         #region Commnad Handlers
-        public Command FindSimilarFaceCommand
+        public Command VisualAuthenticationCommand
         {
             get
             {
-                return new Command(async (obj) =>
+                return new Command((obj) =>
                 {
-                    await TakePhotoAsync();
+                    CoreMethods.SwitchOutRootNavigation(NavigationContainerNames.MainContainer);
+                });
+            }
+        }
+        public Command VoiceAuthenticationCommand
+        {
+            get
+            {
+                return new Command((obj) =>
+                {
+                    CoreMethods.SwitchOutRootNavigation(NavigationContainerNames.MainContainer);
                 });
             }
         }

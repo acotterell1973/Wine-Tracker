@@ -2,13 +2,20 @@
 <local:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WineTracker.Pages;assembly=WineTracker"
-             x:Class="WineTracker.Pages.LoginPage">
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="WineTracker.Pages.LoginPage" Title="Wine Hunter" BackgroundImage="bg_bw.png" >
 
     <ContentPage.Content>
-        <StackLayout>
-            <Button Text="Login with face" Command="{Binding FindSimilarFaceCommand}"></Button>
-            <Button Text="Login with voice" Command="{Binding FindSimilarFaceCommand}"></Button>
-            <Button Text="Register" Command="{Binding RegisterUserCommand}"></Button>
+        <StackLayout Orientation="Vertical"  HorizontalOptions="Center">
+            <StackLayout Orientation="Horizontal"  Padding="15">
+                <controls:ImageButton BackgroundColor="#fff" TextColor="#000" FontSize="Large" HeightRequest="175" WidthRequest="375" Image="Eye_10-128" Orientation="ImageToLeft" HorizontalOptions="Start" ImageHeightRequest="50" ImageWidthRequest="50" Command="{Binding VisualAuthenticationCommand}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"  Padding="15">
+                <controls:ImageButton BackgroundColor="#fff" TextColor="#000" FontSize="Large" HeightRequest="175" WidthRequest="375" Image="recognization_voice_128" Orientation="ImageToLeft"  ImageHeightRequest="50" ImageWidthRequest="50" Command="{Binding VoiceAuthenticationCommand}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"  Padding="15">
+                <controls:ImageButton BackgroundColor="#fff" TextColor="#000" FontSize="Large" VerticalOptions="End" HeightRequest="175" WidthRequest="375" Image="add_cross_new_plus_create-128" Orientation="ImageToLeft"  ImageHeightRequest="50" ImageWidthRequest="50" Command="{Binding RegisterUserCommand}" />
+            </StackLayout>
             <Image Source="{Binding ProfileImage}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"></Image>
         </StackLayout>
     </ContentPage.Content>

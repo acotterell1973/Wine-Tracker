@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using ModernHttpClient;
+using XLabs.Forms.Controls;
 
 namespace WineTracker.Helpers
 {
@@ -46,4 +47,5 @@ namespace WineTracker.Helpers
         }, LazyThreadSafetyMode.ExecutionAndPublication);
         public static HttpClient Instance => HttpClientConnection.Value;
     }
+
 }

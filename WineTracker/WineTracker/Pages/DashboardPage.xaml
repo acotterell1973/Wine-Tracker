@@ -3,52 +3,82 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WineTracker.Pages;assembly=WineTracker"
              xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
-             x:Class="WineTracker.Pages.DashboardPage" BackgroundColor="#e2e1df" Title="Wine Hunter">
+             x:Class="WineTracker.Pages.DashboardPage" Title="Wine Hunter" >
   <local:BasePage.ToolbarItems>
     <ToolbarItem Priority="0" Icon="Plus-30.png" Order="Primary" Command="{Binding AddWineCommand}" />
   </local:BasePage.ToolbarItems>
   <local:BasePage.Content>
-    <StackLayout Margin="5,5,5,5" Padding="5,5,5,5">
-      <freshEssentials:AdvancedFrame Corners="all" CornerRadius="5" InnerBackground="#ffff" OutlineColor="#ffff"
-                                     HorizontalOptions="FillAndExpand"
-                     VerticalOptions="FillAndExpand" >
-        <Label Text="Corners is left, CornerRadius is 10, InnerBackground is Blue" TextColor="White"/>
+    <StackLayout Orientation="Vertical">
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="150">
+        <Grid Margin="10,10,10,10">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+          </Grid.RowDefinitions>
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Label Text="Captures" Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+          <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="End" Text="87" Grid.Row="1" Grid.Column="0"></Label>
+          <Image HeightRequest="75" HorizontalOptions="Start" Source="Generic-Wine-Bottle" Grid.Row="1" Grid.Column="1"></Image>
+        </Grid>
       </freshEssentials:AdvancedFrame>
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="350" >
+        <Grid Margin="10,10,10,10">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+          </Grid.RowDefinitions>
 
-      <Frame>
-        <StackLayout HorizontalOptions="FillAndExpand"
-                     VerticalOptions="FillAndExpand"
-                     Orientation="Vertical"
-                     BackgroundColor="#ffff">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Label Text="Last Victim" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ></Label>
+          <Image HeightRequest="120" HorizontalOptions="Start" Source="Generic-Wine-Bottle" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4"></Image>
+          <Label Text="Name" Grid.Row="1" Grid.Column="1" ></Label>
+          <Label Text="Winery" Grid.Row="2" Grid.Column="1"></Label>
+          <Label Text="Category" Grid.Row="3" Grid.Column="1"></Label>
+          <Label Text="Location" Grid.Row="4" Grid.Column="1"></Label>
+        </Grid>
+      </freshEssentials:AdvancedFrame>
+      <StackLayout Orientation="Horizontal">
+        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="150">
+          <Grid Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"></RowDefinition>
+              <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Text="Reds Captured" Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="23" Grid.Row="1" Grid.Column="0"></Label>
+           
+          </Grid>
+        </freshEssentials:AdvancedFrame>
+        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="150">
+          <Grid Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"></RowDefinition>
+              <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        </StackLayout>
-      </Frame>
-      <Frame>
-        <StackLayout HorizontalOptions="FillAndExpand"
-                     VerticalOptions="FillAndExpand"
-                     Orientation="Vertical"
-                     BackgroundColor="#ffff">
-
-
-        </StackLayout>
-      </Frame>
-      <Frame>
-        <StackLayout HorizontalOptions="FillAndExpand"
-                     VerticalOptions="FillAndExpand"
-                     Orientation="Horizontal"
-                     BackgroundColor="#ffff">
-
-
-        </StackLayout>
-        <StackLayout HorizontalOptions="FillAndExpand"
-                     VerticalOptions="FillAndExpand"
-                     Orientation="Horizontal"
-                     BackgroundColor="#ffff">
-
-
-        </StackLayout>
-      </Frame>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Text="Whites Captured" Grid.Row="0"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+            <Label x:Name="WhiteLabelCount"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="12" Grid.Row="1" Grid.Column="0"></Label>
+           
+          </Grid>
+        </freshEssentials:AdvancedFrame>
+      </StackLayout>
     </StackLayout>
   </local:BasePage.Content>
 

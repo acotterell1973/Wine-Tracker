@@ -1,6 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using WineTracker.Styles;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-//[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace WineTracker.Pages
 {
     public class BasePage : ContentPage
@@ -8,6 +10,8 @@ namespace WineTracker.Pages
         public BasePage()
         {
             Padding = new Thickness(0, 20, 0, 0);
+            BackgroundImage = "bg_bw";
+          
             //ToolbarItems.Add(new ToolbarItem("Wine Capture", "Plus-30.png", () =>
             //{
             //    Application.Current.MainPage = new WineCapturePage();

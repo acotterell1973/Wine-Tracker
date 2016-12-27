@@ -4,7 +4,7 @@
                 xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
             
-                x:Class="WineTracker.Pages.WineCapturePage" BackgroundColor="#e2e1df" Title="The Capture">
+                x:Class="WineTracker.Pages.WineCapturePage" Title="The Capture">
   <local:EditPage.ToolbarItems>
     <ToolbarItem Text="Save" Priority="0" Order="Primary" />
     <ToolbarItem Text="Cancel" Priority="1" Order="Primary" Command="{Binding CancelCommand}" />
@@ -12,66 +12,83 @@
 
 
   <local:EditPage.Content>
-    <StackLayout Margin="5,5,5,5" Padding="5,5,5,5">
-      <freshEssentials:AdvancedFrame Corners="all" CornerRadius="5" InnerBackground="#ffff" OutlineColor="#ffff"
-                                     HorizontalOptions="FillAndExpand"
-                     VerticalOptions="FillAndExpand" >
-        <StackLayout>
-          <StackLayout>
-            <Image></Image>
-          </StackLayout>
-          <StackLayout>
-            <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-              </Grid.RowDefinitions>
+    <StackLayout Orientation="Vertical">
+      <!-- CURRENT WINE INFO -->
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="150">
+        <StackLayout Margin="10,10,10,10" VerticalOptions="Center" HorizontalOptions="Center" Orientation="Vertical" >
+          <Label Text="Ready for the capture. Scan or take a picture." />
+          <Grid Margin="10,0,10,10" HeightRequest="150" >
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-              </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-              <Label Grid.Row="0" Grid.Column="0"  Text="{Binding Model.Producer}"></Label>
-        
-              <Label Grid.Row="1" Grid.Column="0"  Text="{Binding Model.Variety}"></Label>
-              <Label Grid.Row="2" Grid.Column="0"  Text="{Binding Model.Region}"></Label>
+            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding Model.Producer}"></Label>
+            <Label Grid.Row="1" Grid.Column="0"  Text="{Binding Model.Variety}"></Label>
+            <Label Grid.Row="2" Grid.Column="0"  Text="{Binding Model.Region}"></Label>
 
-              <Image
-                  Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Aspect="AspectFit"
-                          VerticalOptions="End"
-                        
-                          HorizontalOptions="CenterAndExpand"
-                          Source="{Binding Model.ImageSource}" />
-            </Grid>
-          </StackLayout>
-          <StackLayout BackgroundColor="#cccccc" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
-            <ListView SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" ItemsSource="{Binding Locations.results }" >
-              <ListView.ItemTemplate>
-                <DataTemplate>
-                  <ViewCell>
-                    <StackLayout Orientation="Horizontal">
-                      <Label Text="{Binding formatted_address}" />
-                      <Label Text="{Binding vicinity}" />
-                      <Label Text="{Binding name}" />
-                    </StackLayout>
-                  </ViewCell>
-                </DataTemplate>
-              </ListView.ItemTemplate>
-            </ListView>
-          </StackLayout>
-          <StackLayout Orientation="Horizontal">
-            <Button Command="{Binding ScanbarCode}" TextColor="Black" Text="Scan Barcode" /> 
-            <Button Text="Picture" TextColor="Black" /> 
-          </StackLayout>
+            <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Aspect="AspectFit" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Source="{Binding Model.ImageSource}" />
+          </Grid>
+
+
         </StackLayout>
 
       </freshEssentials:AdvancedFrame>
 
+      <!-- CURRENT LOCATION -->
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="450" >
+        <StackLayout Orientation="Vertical" Margin="5,5,5,5">
+          <Label Text="Select Location" Style="{StaticResource rowLabelTextBoldStyle}" />
+          <BoxView Style="{StaticResource ticketSeparatorDefaultStyle}"></BoxView>
+          <ListView Margin="0,15,0,5" SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" ItemsSource="{Binding Locations.results }" >
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <ViewCell>
+                  <StackLayout Orientation="Horizontal" Padding="0,0,0,10">
+                    <Grid HeightRequest="50">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+
+                      </Grid.RowDefinitions>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                      </Grid.ColumnDefinitions>
+                      <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="places-icon" />
+                      <Label Grid.Column="1" Grid.Row="0"  Text="{Binding name}" Style="{StaticResource rowLabelTextBoldStyle}" />
+                      <Label Grid.Column="1" Grid.Row="1"  Text="{Binding vicinity}" Style="{StaticResource rowLabelTextNormalStyle}" />
+
+
+                    </Grid>
+
+                  </StackLayout>
+                </ViewCell>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
+
+        </StackLayout>
+      </freshEssentials:AdvancedFrame>
+
+      <!-- ACTION BUTTONS -->
+      <StackLayout Orientation="Horizontal">
+        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="100">
+          <Button Command="{Binding ScanbarCode}" Text="Scan Barcode" />
+        </freshEssentials:AdvancedFrame>
+        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="100">
+          <Button Command="{Binding ScanImage}" Text="Picture"  />
+        </freshEssentials:AdvancedFrame>
+      </StackLayout>
     </StackLayout>
 
   </local:EditPage.Content>

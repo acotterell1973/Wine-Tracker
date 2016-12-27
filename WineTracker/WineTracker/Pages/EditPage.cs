@@ -2,7 +2,7 @@
 
 namespace WineTracker.Pages
 {
-    public class EditPage : ContentPage
+    public class EditPage : BasePage
     {
         public EditPage()
         {

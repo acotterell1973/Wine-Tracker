@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FreshMvvm;
 using Xamarin.Forms;
+using WineTracker.Styles;
 
 namespace WineTracker.NavigationService
 {
@@ -27,8 +28,8 @@ namespace WineTracker.NavigationService
             var listview = new ListView();
             var menuPage = new ContentPage
             {
-                Title = menuPageTitle,
-                BackgroundColor = Color.FromHex("#c8c8c8")
+                Title = menuPageTitle//,
+               // BackgroundColor = Color.FromHex("#c8c8c8")
             };
 
             listview.ItemsSource = _pageIcons;
@@ -64,8 +65,8 @@ namespace WineTracker.NavigationService
         {
             var navigation = new NavigationPage(page)
             {
-                BarBackgroundColor = Color.Blue,
-                BarTextColor = Color.White
+                BarBackgroundColor = BrandColor.DashboardBackground,
+                BarTextColor = BrandColor.WarmGrey
             };
 
             return navigation;
