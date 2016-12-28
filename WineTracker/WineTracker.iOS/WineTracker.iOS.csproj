@@ -394,6 +394,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\places-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\white_wine_glass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\red_wine_glass.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

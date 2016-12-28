@@ -14,9 +14,9 @@
   <local:EditPage.Content>
     <StackLayout Orientation="Vertical">
       <!-- CURRENT WINE INFO -->
-      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="150">
-        <StackLayout Margin="10,10,10,10" VerticalOptions="Center" HorizontalOptions="Center" Orientation="Vertical" >
-          <Label Text="Ready for the capture. Scan or take a picture." />
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" Style="{StaticResource wineCaptureBucketStyle}">
+        <StackLayout  Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+ 
           <Grid Margin="10,0,10,10" HeightRequest="150" >
             <Grid.RowDefinitions>
               <RowDefinition Height="*" />
@@ -39,7 +39,21 @@
             <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Aspect="AspectFit" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Source="{Binding Model.ImageSource}" />
           </Grid>
 
-
+<StackLayout Orientation="Horizontal" Padding="0" Margin="0">
+  <AbsoluteLayout>
+    <Label Text="I'm centered on iPhone 4 but no other device"
+        AbsoluteLayout.LayoutBounds="115,150,100,100" LineBreakMode="WordWrap"  />
+    <Label Text="I'm bottom center on every device."
+        AbsoluteLayout.LayoutBounds=".5,1,.5,.1" AbsoluteLayout.LayoutFlags="All"
+        LineBreakMode="WordWrap"  />
+    <BoxView Color="Olive"  AbsoluteLayout.LayoutBounds="1,.5, 25, 100"
+        AbsoluteLayout.LayoutFlags="PositionProportional" />
+    <BoxView Color="Red" AbsoluteLayout.LayoutBounds="0,.5,25,100"
+        AbsoluteLayout.LayoutFlags="PositionProportional" />
+    <BoxView Color="Blue" AbsoluteLayout.LayoutBounds=".5,0,100,25"
+        AbsoluteLayout.LayoutFlags="PositionProportional" />
+  </AbsoluteLayout>
+</StackLayout>
         </StackLayout>
 
       </freshEssentials:AdvancedFrame>

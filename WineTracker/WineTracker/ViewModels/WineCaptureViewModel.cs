@@ -57,7 +57,7 @@ namespace WineTracker.ViewModels
                 //{
                 //    ScanbarCode.Execute(null);
                 //});
-                Model = await QueryUpc("0010986007634");
+               // Model = await QueryUpc("0010986007634");
             }, _cancellationToken.Token);
 
 

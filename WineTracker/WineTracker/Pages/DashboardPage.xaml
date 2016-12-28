@@ -8,77 +8,65 @@
     <ToolbarItem Priority="0" Icon="Plus-30.png" Order="Primary" Command="{Binding AddWineCommand}" />
   </local:BasePage.ToolbarItems>
   <local:BasePage.Content>
+
     <StackLayout Orientation="Vertical">
-      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="150">
-        <Grid Margin="10,10,10,10">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-          </Grid.RowDefinitions>
-
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
-          <Label Text="Captures" Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-          <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="End" Text="87" Grid.Row="1" Grid.Column="0"></Label>
-          <Image HeightRequest="75" HorizontalOptions="Start" Source="Generic-Wine-Bottle" Grid.Row="1" Grid.Column="1"></Image>
-        </Grid>
+      <!-- WINES CAPTURED VIEW -->
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" Style="{StaticResource dashboardPageBucketWinesCapturedStyle}">
+        <StackLayout Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+          <Label Style="{StaticResource dashboardPageBucketItemTypeStyle}" Text="Total Captured"  />
+          <StackLayout Orientation="Horizontal">
+            <Label Style="{StaticResource dashboardPageBucketNumberLargeStyle}"  Text="87" ></Label>
+            <Image HeightRequest="75" HorizontalOptions="Start" Source="Generic-Wine-Bottle" ></Image>
+          </StackLayout>
+        </StackLayout>
       </freshEssentials:AdvancedFrame>
-      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="350" >
-        <Grid Margin="10,10,10,10">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-          </Grid.RowDefinitions>
-
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
-          <Label Text="Last Victim" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ></Label>
-          <Image HeightRequest="120" HorizontalOptions="Start" Source="Generic-Wine-Bottle" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4"></Image>
-          <Label Text="Name" Grid.Row="1" Grid.Column="1" ></Label>
-          <Label Text="Winery" Grid.Row="2" Grid.Column="1"></Label>
-          <Label Text="Category" Grid.Row="3" Grid.Column="1"></Label>
-          <Label Text="Location" Grid.Row="4" Grid.Column="1"></Label>
-        </Grid>
-      </freshEssentials:AdvancedFrame>
-      <StackLayout Orientation="Horizontal">
-        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="150">
-          <Grid Margin="10,10,10,10">
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Text="Reds Captured" Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="23" Grid.Row="1" Grid.Column="0"></Label>
-           
-          </Grid>
+      
+      <!-- LAST WINE CAPTURED VIEW -->
+      <ScrollView Orientation="Horizontal">
+        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="350" >
+          <StackLayout Orientation="Vertical">
+            <Label Style="{StaticResource dashboardPageGroupTitleStyle}" Text="Last Captured"  />
+            <Label Style="{StaticResource dashboardPageGroupSubTitleStyle}" Text="05/16/2016 @ The Wine Cellar"  />
+            <StackLayout Orientation="Horizontal"  Margin="10,10,10,10">
+              <!-- WINE GLASS -->
+              <StackLayout Orientation="Vertical">
+                <Image HorizontalOptions="Start" Source="red_wine_glass" Aspect="AspectFit" HeightRequest="250" />
+              </StackLayout>
+              <!-- WINE DESCRIPTION -->
+              <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                <Label Style="{StaticResource dashboardWineCardWineNameTitleStyle}" Text="EarthQuake" VerticalTextAlignment="Center" />
+                <Label Style="{StaticResource dashboardWineCardWineYearTitleStyle}" Text="2014" VerticalTextAlignment="Center" />
+                <Label Style="{StaticResource dashboardWineCardDefaultLabelStyle}" Text="Graton, California" VerticalTextAlignment="Center" />
+                <Label Style="{StaticResource dashboardWineCardDefaultLabelStyle}" Text="Cabernet Sauvignon" VerticalTextAlignment="Center" />
+                <Label Style="{StaticResource dashboardWineCardDefaultLabelStyle}" Text="750 ML" VerticalTextAlignment="Center" />
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
         </freshEssentials:AdvancedFrame>
-        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" InnerBackground="#ffff" OutlineColor="#ffff" HorizontalOptions="FillAndExpand" HeightRequest="150">
-          <Grid Margin="10,10,10,10">
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Text="Whites Captured" Grid.Row="0"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-            <Label x:Name="WhiteLabelCount"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="12" Grid.Row="1" Grid.Column="0"></Label>
-           
-          </Grid>
-        </freshEssentials:AdvancedFrame>
-      </StackLayout>
+      </ScrollView>
+      <!-- WINE CATEGORY CAPTURED VIEW -->
+      <ScrollView Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal">
+          <freshEssentials:AdvancedFrame Style="{StaticResource dashboardPageFrameBucketStyle}" Margin="5,0,5,5" Padding="20,10,20,0" Corners="all" CornerRadius="3" >
+            <StackLayout Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+              <Label Style="{StaticResource dashboardPageBucketItemTypeStyle}" Text="Reds Captured"  />
+              <Label Style="{StaticResource dashboardPageBucketNumberStyle}"  Text="23" ></Label>
+            </StackLayout>
+          </freshEssentials:AdvancedFrame>
+          <freshEssentials:AdvancedFrame Style="{StaticResource dashboardPageFrameBucketStyle}" Margin="5,0,5,5" Padding="20,10,20,0" Corners="all" CornerRadius="3" >
+            <StackLayout Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+              <Label Style="{StaticResource dashboardPageBucketItemTypeStyle}" Text="Whites Captured"  />
+              <Label Style="{StaticResource dashboardPageBucketNumberStyle}"  Text="12" ></Label>
+            </StackLayout>
+          </freshEssentials:AdvancedFrame>
+          <freshEssentials:AdvancedFrame Style="{StaticResource dashboardPageFrameBucketStyle}" Margin="5,0,5,5" Padding="20,10,20,0" Corners="all" CornerRadius="3" >
+            <StackLayout Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+              <Label Style="{StaticResource dashboardPageBucketItemTypeStyle}" Text="Cabernet Sauvignon Captured"  />
+              <Label Style="{StaticResource dashboardPageBucketNumberStyle}"  Text="8" ></Label>
+            </StackLayout>
+          </freshEssentials:AdvancedFrame>
+        </StackLayout>
+      </ScrollView>
     </StackLayout>
   </local:BasePage.Content>
 

@@ -7,7 +7,6 @@ namespace WineTracker.Pages
         public DashboardPage()
         {
             InitializeComponent();
-            WhiteLabelCount.Style = AppStyle.LabelStyle.LargeLabel;
         }
     }
 }

@@ -103,7 +103,6 @@
     <Compile Include="RepositoryServices\IUPCCodeService.cs" />
     <Compile Include="RepositoryServices\ServiceBase.cs" />
     <Compile Include="RepositoryServices\UPCCodeSerivce.cs" />
-    <Compile Include="Styles\AppStyle.cs" />
     <Compile Include="Styles\BrandColor.cs" />
     <Compile Include="Styles\DefaultStyle.cs" />
     <Compile Include="Styles\Styles.cs" />

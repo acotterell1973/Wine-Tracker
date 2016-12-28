@@ -46,11 +46,6 @@ namespace WineTracker.Styles
         // Sidebar Colors
         public static Color Sidebar = Black;
 
-        // Sla Colors
-        public static Color SlaTimeLeft = Success;
-        public static Color SlaTimeClose = Warning;
-        public static Color SlaTimeOut = Error;
-        public static Color NoSla = WarmGray;
 
         // Dashboard Colors
         public static Color DashboardBackground = Offwhite;
@@ -59,13 +54,6 @@ namespace WineTracker.Styles
         public static Color MessageBar = TurquoiseBlue;
         public static Color MessageBarText = White;
 
-        // Pick Ticket List Colors
-        public static Color GetNextButton = WarmGray;
-
-        // Pick Ticket Line Item Colors
-        public static Color NotFullyPicked = White;
-        public static Color Picked = PinkishGray;
-        public static Color PickTicketLineItemBorder = PinkishGray;
 
         // Pick Ticket List View
         public static Color PickTicketHeaderBackgroundColor = Black;
