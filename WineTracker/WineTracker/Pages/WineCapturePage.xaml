@@ -6,90 +6,63 @@
             
                 x:Class="WineTracker.Pages.WineCapturePage" Title="The Capture">
   <local:EditPage.ToolbarItems>
-    <ToolbarItem Text="Save" Priority="0" Order="Primary" />
-    <ToolbarItem Text="Cancel" Priority="1" Order="Primary" Command="{Binding CancelCommand}" />
+    <ToolbarItem Text="Back" Priority="1" Order="Primary" Command="{Binding CancelCommand}" />
   </local:EditPage.ToolbarItems>
 
 
   <local:EditPage.Content>
     <StackLayout Orientation="Vertical">
       <!-- CURRENT WINE INFO -->
-      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" Style="{StaticResource wineCaptureBucketStyle}">
-        <StackLayout  Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
- 
-          <Grid Margin="10,0,10,10" HeightRequest="150" >
-            <Grid.RowDefinitions>
-              <RowDefinition Height="*" />
-              <RowDefinition Height="Auto" />
-              <RowDefinition Height="Auto" />
-              <RowDefinition Height="Auto" />
-              <RowDefinition Height="Auto" />
-              <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding Model.Producer}"></Label>
-            <Label Grid.Row="1" Grid.Column="0"  Text="{Binding Model.Variety}"></Label>
-            <Label Grid.Row="2" Grid.Column="0"  Text="{Binding Model.Region}"></Label>
-
-            <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Aspect="AspectFit" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Source="{Binding Model.ImageSource}" />
-          </Grid>
-
-<StackLayout Orientation="Horizontal" Padding="0" Margin="0">
-  <AbsoluteLayout>
-    <Label Text="I'm centered on iPhone 4 but no other device"
-        AbsoluteLayout.LayoutBounds="115,150,100,100" LineBreakMode="WordWrap"  />
-    <Label Text="I'm bottom center on every device."
-        AbsoluteLayout.LayoutBounds=".5,1,.5,.1" AbsoluteLayout.LayoutFlags="All"
-        LineBreakMode="WordWrap"  />
-    <BoxView Color="Olive"  AbsoluteLayout.LayoutBounds="1,.5, 25, 100"
-        AbsoluteLayout.LayoutFlags="PositionProportional" />
-    <BoxView Color="Red" AbsoluteLayout.LayoutBounds="0,.5,25,100"
-        AbsoluteLayout.LayoutFlags="PositionProportional" />
-    <BoxView Color="Blue" AbsoluteLayout.LayoutBounds=".5,0,100,25"
-        AbsoluteLayout.LayoutFlags="PositionProportional" />
-  </AbsoluteLayout>
-</StackLayout>
-        </StackLayout>
-
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" Style="{StaticResource wineCaptureBucketStyle}" HorizontalOptions="FillAndExpand">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand">
+          <Image AbsoluteLayout.LayoutBounds="1,1,AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Source="exploded_wine_glass" ></Image>
+          <StackLayout AbsoluteLayout.LayoutBounds="0.1, 0.1, AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+            <StackLayout Orientation="Vertical">
+              <Label Style="{StaticResource cardTitleLargeStyle}"  Text="Add" />
+              <Label Style="{StaticResource dashboardPageBucketItemTypeStyle}" Text="to your collection"  />
+            </StackLayout>
+          </StackLayout>
+        </AbsoluteLayout>
       </freshEssentials:AdvancedFrame>
 
+
+
       <!-- CURRENT LOCATION -->
+
       <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="450" >
-        <StackLayout Orientation="Vertical" Margin="5,5,5,5">
-          <Label Text="Select Location" Style="{StaticResource rowLabelTextBoldStyle}" />
-          <BoxView Style="{StaticResource ticketSeparatorDefaultStyle}"></BoxView>
-          <ListView Margin="0,15,0,5" SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" ItemsSource="{Binding Locations.results }" >
+        <StackLayout  Orientation="Vertical">
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Select Location" Style="{StaticResource rowLabelTextNormalStyle}" />
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                              IsRunning="{Binding IsBusy}"
+                              Color="Black"
+                              VerticalOptions="CenterAndExpand"
+                              HorizontalOptions="CenterAndExpand" />
+          </StackLayout>
+
+
+          <ListView HasUnevenRows="True" SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" ItemsSource="{Binding Locations.results }" >
             <ListView.ItemTemplate>
               <DataTemplate>
-                <ViewCell>
-                  <StackLayout Orientation="Horizontal" Padding="0,0,0,10">
-                    <Grid HeightRequest="50">
-                      <Grid.RowDefinitions>
-                        <RowDefinition Height="20" />
-                        <RowDefinition Height="20" />
-
-                      </Grid.RowDefinitions>
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="*" />
-                      </Grid.ColumnDefinitions>
-                      <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" Source="places-icon" />
-                      <Label Grid.Column="1" Grid.Row="0"  Text="{Binding name}" Style="{StaticResource rowLabelTextBoldStyle}" />
-                      <Label Grid.Column="1" Grid.Row="1"  Text="{Binding vicinity}" Style="{StaticResource rowLabelTextNormalStyle}" />
-
-
-                    </Grid>
-
+                <ViewCell Height="60"  >
+                  <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Horizontal" >
+                    <StackLayout WidthRequest="50" HeightRequest="50" Orientation="Horizontal" >
+                      <Image VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="50" WidthRequest="50" Source="places-icon" />
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                      <Label WidthRequest="300" LineBreakMode="NoWrap" Text="{Binding name}" Style="{StaticResource rowLabelTextBoldStyle}" />
+                      <Label WidthRequest="300" LineBreakMode="NoWrap" Text="{Binding vicinity}" Style="{StaticResource rowLabelTextNormalStyle}" />
+                    </StackLayout>
                   </StackLayout>
                 </ViewCell>
               </DataTemplate>
             </ListView.ItemTemplate>
           </ListView>
+
+
+
 
         </StackLayout>
       </freshEssentials:AdvancedFrame>
@@ -97,10 +70,7 @@
       <!-- ACTION BUTTONS -->
       <StackLayout Orientation="Horizontal">
         <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="100">
-          <Button Command="{Binding ScanbarCode}" Text="Scan Barcode" />
-        </freshEssentials:AdvancedFrame>
-        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="100">
-          <Button Command="{Binding ScanImage}" Text="Picture"  />
+          <Button Command="{Binding ScanImage}" Text="Add Wine"  />
         </freshEssentials:AdvancedFrame>
       </StackLayout>
     </StackLayout>

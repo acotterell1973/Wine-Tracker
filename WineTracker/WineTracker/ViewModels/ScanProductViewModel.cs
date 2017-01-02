@@ -6,9 +6,8 @@ using Plugin.Media.Abstractions;
 using PropertyChanged;
 using Tesseract;
 using WineTracker.Models;
-using WineTracker.PageModels;
-using WineTracker.RepositoryServices;
-using WineTracker.RepositoryServices.Components;
+using WineTracker.Services;
+using WineTracker.Services.Components;
 using Xamarin.Forms;
 using ZXing.Mobile;
 

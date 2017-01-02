@@ -39,13 +39,29 @@
     <Compile Include="AkavacheSqliteLinkerOverride.cs" />
     <Compile Include="App.cs" />
     <Compile Include="AsyncErrorHandler.cs" />
-    <Compile Include="Components\AsynErrorHandler.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\ChatListView.cs" />
+    <Compile Include="Controls\MessageViewCell.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\NamedObservableCollection.cs" />
+    <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
     <Compile Include="Models\Bottle.cs" />
     <Compile Include="Models\BottleImage.cs" />
     <Compile Include="Models\BottleInfo.cs" />
+    <Compile Include="Models\DirectLineClient\Activity.cs" />
+    <Compile Include="Models\DirectLineClient\Attachment.cs" />
+    <Compile Include="Models\DirectLineClient\AuthenticationResponse.cs" />
+    <Compile Include="Models\DirectLineClient\ConversationMessages.cs" />
+    <Compile Include="Models\DirectLineClient\Message.cs" />
+    <Compile Include="Models\DirectLineClient\StartConversationResponse.cs" />
+    <Compile Include="Models\Messages\Attachment.cs" />
+    <Compile Include="Models\Messages\BOTMessage.cs" />
+    <Compile Include="Models\Messages\Conversation.cs" />
+    <Compile Include="Models\Messages\Event.cs" />
     <Compile Include="Models\Face.cs" />
     <Compile Include="Models\GeoPlaces.cs" />
+    <Compile Include="Models\Helpers\AutoMapper.cs" />
+    <Compile Include="Models\Helpers\PropertyValuePair.cs" />
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\BottleLocation.cs" />
     <Compile Include="Models\BottleOccasions.cs" />
@@ -60,9 +76,15 @@
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\ITelemetry.cs" />
     <Compile Include="Interface\KeyboardHelper.cs" />
+    <Compile Include="Models\Messages\BaseDto.cs" />
+    <Compile Include="Models\Messages\MessageSet.cs" />
+    <Compile Include="Models\Messages\TextMessage.cs" />
     <Compile Include="Models\VoiceVerification.cs" />
     <Compile Include="NavigationService\MenuItem.cs" />
     <Compile Include="NavigationService\ThemedMasterDetailNavigationContainer.cs" />
+    <Compile Include="Pages\AddWinePage.xaml.cs">
+      <DependentUpon>AddWinePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\EditPage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -73,14 +95,21 @@
     <Compile Include="Pages\WineCapturePage.xaml.cs">
       <DependentUpon>WineCapturePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RepositoryServices\CognitiveService.cs" />
-    <Compile Include="RepositoryServices\Components\ExternalServices\IApiGooglePlacesDatabase.cs" />
-    <Compile Include="RepositoryServices\Components\GeoLocationComponent.cs" />
-    <Compile Include="RepositoryServices\Components\IGeoLocationComponent.cs" />
-    <Compile Include="RepositoryServices\Components\IWineHunterComponent.cs" />
-    <Compile Include="RepositoryServices\Components\WineHunterComponent.cs" />
+    <Compile Include="Services\ChatServices.cs" />
+    <Compile Include="Services\ChatServicesBase.cs" />
+    <Compile Include="Services\CognitiveService.cs" />
+    <Compile Include="Services\Components\DirectLineApiClient.cs" />
+    <Compile Include="Services\Components\ExternalServices\IApiGooglePlacesDatabase.cs" />
+    <Compile Include="Services\Components\GeoLocationComponent.cs" />
+    <Compile Include="Interface\IDirectLineApiClient.cs" />
+    <Compile Include="Services\Components\IGeoLocationComponent.cs" />
+    <Compile Include="Services\Components\IWineHunterComponent.cs" />
+    <Compile Include="Models\DirectLineClient\ReconnectMessageResponse.cs" />
+    <Compile Include="Services\Components\WineHunterComponent.cs" />
     <Compile Include="Interface\ICongnitiveService.cs" />
-    <Compile Include="RepositoryServices\Repository.cs" />
+    <Compile Include="Services\EventViewModelFactory.cs" />
+    <Compile Include="Interface\IChatServices.cs" />
+    <Compile Include="Services\Repository.cs" />
     <Compile Include="Models\GeoCode.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\UpcItemDb.cs" />
@@ -94,23 +123,26 @@
       <DependentUpon>ScanProductPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryServices\Components\ComponentBase.cs" />
-    <Compile Include="RepositoryServices\Components\ExternalServices\ApiUpcDatabase.cs" />
-    <Compile Include="RepositoryServices\Components\ExternalServices\ApiGooglePlacesDatabase.cs" />
-    <Compile Include="RepositoryServices\Components\ExternalServices\IApiUpcDatabase.cs" />
-    <Compile Include="RepositoryServices\Components\IUPCCodeComponent.cs" />
-    <Compile Include="RepositoryServices\Components\UPCCodeComponent.cs" />
-    <Compile Include="RepositoryServices\IUPCCodeService.cs" />
-    <Compile Include="RepositoryServices\ServiceBase.cs" />
-    <Compile Include="RepositoryServices\UPCCodeSerivce.cs" />
+    <Compile Include="Services\Components\ComponentBase.cs" />
+    <Compile Include="Services\Components\ExternalServices\ApiUpcDatabase.cs" />
+    <Compile Include="Services\Components\ExternalServices\ApiGooglePlacesDatabase.cs" />
+    <Compile Include="Services\Components\ExternalServices\IApiUpcDatabase.cs" />
+    <Compile Include="Services\Components\IUPCCodeComponent.cs" />
+    <Compile Include="Services\Components\UPCCodeComponent.cs" />
+    <Compile Include="Services\IUPCCodeService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\UPCCodeSerivce.cs" />
     <Compile Include="Styles\BrandColor.cs" />
     <Compile Include="Styles\DefaultStyle.cs" />
     <Compile Include="Styles\Styles.cs" />
+    <Compile Include="ViewModels\AddWineViewModel.cs" />
     <Compile Include="ViewModels\BaseNotificationHandler.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\ScanProductViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\TextMessageViewModel.cs" />
     <Compile Include="ViewModels\VoiceVerificationViewModel.cs" />
     <Compile Include="ViewModels\WineCaptureViewModel.cs" />
   </ItemGroup>
@@ -292,9 +324,7 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
@@ -324,6 +354,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\VoiceVerificationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\AddWinePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

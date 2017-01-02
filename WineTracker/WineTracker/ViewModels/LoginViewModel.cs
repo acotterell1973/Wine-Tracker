@@ -6,9 +6,7 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using WineTracker.Interface;
 using WineTracker.Models;
-using WineTracker.PageModels;
 using Xamarin.Forms;
-using WineTracker.RepositoryServices;
 
 namespace WineTracker.ViewModels
 {

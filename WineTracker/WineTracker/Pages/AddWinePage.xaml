@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:EditPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:WineTracker.Pages;assembly=WineTracker"
+             xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
+             xmlns:controls="clr-namespace:WineTracker.Controls;assembly=WineTracker"
+             x:Class="WineTracker.Pages.AddWinePage">
+
+  <pages:EditPage.ToolbarItems>
+    <ToolbarItem Text="Save" Priority="0" Order="Primary" />
+    <ToolbarItem Text="Cancel" Priority="1" Order="Primary" Command="{Binding CancelCommand}" />
+  </pages:EditPage.ToolbarItems>
+
+
+  <pages:EditPage.Content>
+    <StackLayout Orientation="Vertical">
+      <!-- CURRENT WINE INFO -->
+
+
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" Style="{StaticResource addWineBucketStyle}" HorizontalOptions="FillAndExpand">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand">
+          <Image AbsoluteLayout.LayoutBounds="1,1,AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Source="exploded_wine_glass" ></Image>
+          <StackLayout AbsoluteLayout.LayoutBounds="0.1, 0.1, AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+            <StackLayout Orientation="Vertical">
+
+            </StackLayout>
+          </StackLayout>
+        </AbsoluteLayout>
+      </freshEssentials:AdvancedFrame>
+
+
+
+      <!-- BOT CHAT -->
+
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="450" >
+        <StackLayout  Orientation="Vertical">
+
+          <controls:ChatListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Events }" >
+           <controls:ChatListView.ItemTemplate>
+             <DataTemplate>
+               <controls:MessageViewCell>
+                 <StackLayout Orientation="Horizontal">
+                   <Label Text="test"></Label>
+                 </StackLayout>
+               </controls:MessageViewCell>  
+             </DataTemplate>
+           </controls:ChatListView.ItemTemplate>
+          </controls:ChatListView>
+          <StackLayout Orientation="Horizontal">
+            <Entry HorizontalOptions="FillAndExpand" Keyboard="Chat" Placeholder="Type Message" HeightRequest="30" Text="{Binding ChatInputText, Mode=TwoWay}"  />
+            <Button VerticalOptions="EndAndExpand" Text="   Send   " Command="{Binding SendMessageCommand}"  />
+          </StackLayout>
+
+        </StackLayout>
+      </freshEssentials:AdvancedFrame>
+
+      <!-- ACTION BUTTONS -->
+          <!--
+      <StackLayout Orientation="Horizontal">
+        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="100">
+          <Button Command="{Binding ScanbarCode}" Text="Scan Barcode" />
+        </freshEssentials:AdvancedFrame>
+        <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="100">
+          <Button Command="{Binding ScanImage}" Text="Picture"  />
+        </freshEssentials:AdvancedFrame>
+      </StackLayout>-->
+    </StackLayout>
+
+  </pages:EditPage.Content>
+
+</pages:EditPage>

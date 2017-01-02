@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using FreshMvvm;
 
-namespace WineTracker.PageModels
+namespace WineTracker.ViewModels
 {
     public abstract class BaseViewModel<TM> : FreshBasePageModel
     {

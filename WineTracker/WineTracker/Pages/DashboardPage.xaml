@@ -12,13 +12,16 @@
     <StackLayout Orientation="Vertical">
       <!-- WINES CAPTURED VIEW -->
       <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" Style="{StaticResource dashboardPageBucketWinesCapturedStyle}">
-        <StackLayout Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
-          <Label Style="{StaticResource dashboardPageBucketItemTypeStyle}" Text="Total Captured"  />
-          <StackLayout Orientation="Horizontal">
-            <Label Style="{StaticResource dashboardPageBucketNumberLargeStyle}"  Text="87" ></Label>
-            <Image HeightRequest="75" HorizontalOptions="Start" Source="Generic-Wine-Bottle" ></Image>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" >
+          <Image AbsoluteLayout.LayoutBounds="1.5, 1.0, AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Source="winestains" />
+          <StackLayout AbsoluteLayout.LayoutBounds="1.0, 0.1, AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Orientation="Vertical"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+            <StackLayout Orientation="Horizontal">
+              <Label Style="{StaticResource dashboardPageBucketNumberLargeStyle}"  Text="87" ></Label>
+              <Label Style="{StaticResource dashboardPageBucketItemTypeStyle}" Text="Captured"  />
+            </StackLayout>
           </StackLayout>
-        </StackLayout>
+        </AbsoluteLayout>
+
       </freshEssentials:AdvancedFrame>
       
       <!-- LAST WINE CAPTURED VIEW -->

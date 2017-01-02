@@ -110,7 +110,11 @@
     <Compile Include="Implementation\Telemetry.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderers\BubbleCell.cs" />
+    <Compile Include="Renderers\ChatBubble.cs" />
+    <Compile Include="Renderers\ChatListViewRenderer.cs" />
     <Compile Include="Renderers\FrameExtRenderer.cs" />
+    <Compile Include="Renderers\MessageRenderer.cs" />
     <Compile Include="Renderers\NavigationPageRenderer.cs" />
     <Compile Include="Renderers\WineContentPageRenderer.cs" />
     <Compile Include="Settings.cs" />
@@ -189,6 +193,7 @@
       <HintPath>..\..\packages\Microsoft.Net.Http.Headers.1.1.0\lib\netstandard1.1\Microsoft.Net.Http.Headers.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -399,6 +404,36 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\red_wine_glass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\exploded_wine_glass-300x284.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wine_PNG9474.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\exploded_wine_glass-300x284_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\winestains.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\exploded_wine_glass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\chat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

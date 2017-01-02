@@ -1,7 +1,5 @@
 ﻿using WineTracker.Interface;
 using WineTracker.Models;
-using WineTracker.PageModels;
-using WineTracker.RepositoryServices;
 
 namespace WineTracker.ViewModels
 {

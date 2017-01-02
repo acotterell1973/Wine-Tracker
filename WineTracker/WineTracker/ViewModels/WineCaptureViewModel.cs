@@ -7,9 +7,8 @@ using PropertyChanged;
 using Tesseract;
 using WineTracker.Interface;
 using WineTracker.Models;
-using WineTracker.PageModels;
-using WineTracker.RepositoryServices;
-using WineTracker.RepositoryServices.Components;
+using WineTracker.Services;
+using WineTracker.Services.Components;
 using Xamarin.Forms;
 using ZXing.Mobile;
 using Result = WineTracker.Models.Result;
@@ -20,14 +19,14 @@ namespace WineTracker.ViewModels
     public class WineCaptureViewModel : BaseViewModel<WineItemInfo>
     {
         private readonly IUpcCodeService _upcCodeSerivce;
-    //    private readonly ITesseractApi _tesseractApi;
+        //    private readonly ITesseractApi _tesseractApi;
         private readonly IWineHunterComponent _wineHunterComponent;
         private readonly IGeoLocationComponent _geoLocationComponent;
-        private  CancellationTokenSource _cancellationToken;
-     //   private Image _takenImage;
+        private CancellationTokenSource _cancellationToken;
+        //   private Image _takenImage;
         private Item _selectedLocation;
         private readonly ICognitiveService _visionServiceClient;
-        public WineCaptureViewModel(IUpcCodeService upcCodeSerivce, ITesseractApi tesseractApi, 
+        public WineCaptureViewModel(IUpcCodeService upcCodeSerivce, ITesseractApi tesseractApi,
             IWineHunterComponent wineHunterComponent, IGeoLocationComponent geoLocationComponent,
             ICognitiveService cognitiveService)
         {
@@ -39,13 +38,14 @@ namespace WineTracker.ViewModels
             _cancellationToken = new CancellationTokenSource();
 
         }
-        public override  void Init(object initData)
+        public override void Init(object initData)
         {
             base.Init(initData);
             Model = new WineItemInfo();
 
             Task.Run(async () =>
             {
+                IsBusy = true;
                 var position = await _geoLocationComponent.GetCurentLocation(_cancellationToken.Token);
 
 
@@ -53,11 +53,12 @@ namespace WineTracker.ViewModels
 
                 //Get Address Info from GeCode
                 Locations = await _geoLocationComponent.GetNearByPlacesTask(_cancellationToken.Token, position.Latitude.ToString(), position.Longitude.ToString());
+                IsBusy = false;
                 //Device.BeginInvokeOnMainThread(() =>
                 //{
                 //    ScanbarCode.Execute(null);
                 //});
-               // Model = await QueryUpc("0010986007634");
+                // Model = await QueryUpc("0010986007634");
             }, _cancellationToken.Token);
 
 
@@ -73,7 +74,7 @@ namespace WineTracker.ViewModels
             {
                 SetValue(value);
                 //  SomeCommand.Execute(_selectedAddressItem);
-             //   SelectedLocation = null;
+                //   SelectedLocation = null;
             }
 
 
@@ -81,16 +82,23 @@ namespace WineTracker.ViewModels
         }
         #endregion
         #region Commands
+        public Command SendMessageCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await CoreMethods.PushPageModel<AddWineViewModel>();
+                });
+            }
+        }
         public Command ScanbarCode
         {
             get
             {
                 return new Command(async () =>
                 {
-                //    var counts = await _wineHunterComponent.GetWineCount();
-                    var scanner = new MobileBarcodeScanner();
-                    var upc = await scanner.Scan();
-                    Model = await QueryUpc(upc?.Text);
+                    await CoreMethods.PushPageModel<AddWineViewModel>();
                 });
             }
         }
@@ -101,7 +109,7 @@ namespace WineTracker.ViewModels
             {
                 return new Command(async () =>
                 {
-                  var success= await TakePhotoAsync();
+                    await CoreMethods.PushPageModel<AddWineViewModel>();
                 });
             }
         }
@@ -128,7 +136,7 @@ namespace WineTracker.ViewModels
             _cancellationToken = new CancellationTokenSource();
             var cancellationToken = _cancellationToken.Token;
             var bottleInfo = await _upcCodeSerivce.GetProductByUpcCode(cancellationToken, upc);
-         
+
             return bottleInfo;
         }
 
@@ -159,10 +167,10 @@ namespace WineTracker.ViewModels
                     }
                     catch (Exception ex)
                     {
-           
+
                     }
                 });
-        
+
             }
             return true;
         }

@@ -150,20 +150,33 @@ namespace WineTracker.Styles
 			};
 			StyleDictionary.Add("dashboardPageBucketWinesCapturedStyle", dashboardPageBucketWinesCapturedStyle);
 
-            // bucket - container - add new
-            var wineCaptureBucketStyle = new Style(typeof(AdvancedFrame))
-            {
-                Setters =
-                {
-                    new Setter {Property = InnerBackgroundProperty, Value = BrandColor.SunflowerYellow},
-                    new Setter {Property = Frame.OutlineColorProperty, Value = BrandColor.SunflowerYellow},
-                },
-                BasedOn = dashboardPageFrameBucketStyle
-            };
-            StyleDictionary.Add("wineCaptureBucketStyle", wineCaptureBucketStyle);
+			// bucket - container - add new
+			var wineCaptureBucketStyle = new Style(typeof(AdvancedFrame))
+			{
+				Setters =
+				{
+					new Setter {Property = InnerBackgroundProperty, Value = BrandColor.SunflowerYellow},
+					new Setter {Property = Frame.OutlineColorProperty, Value = BrandColor.SunflowerYellow},
+				},
+				BasedOn = dashboardPageFrameBucketStyle
+			};
+			StyleDictionary.Add("wineCaptureBucketStyle", wineCaptureBucketStyle);
 
-            // bucket - base text
-            var dashboardPageBucketTextStyle = new Style(typeof(Label))
+			// bucket - container - add new
+			var addWineBucketStyle = new Style(typeof(AdvancedFrame))
+			{
+				Setters =
+				{
+					new Setter {Property = InnerBackgroundProperty, Value = BrandColor.Black},
+					new Setter {Property = Frame.OutlineColorProperty, Value = BrandColor.Black},
+				},
+				BasedOn = dashboardPageFrameBucketStyle
+			};
+			StyleDictionary.Add("addWineBucketStyle", addWineBucketStyle);
+
+
+			// bucket - base text
+			var dashboardPageBucketTextStyle = new Style(typeof(Label))
 			{
 				Setters =
 				{
@@ -192,25 +205,37 @@ namespace WineTracker.Styles
 				{
 					new Setter {Property = Label.FontSizeProperty, Value = 35},
 					new Setter {Property = Label.FontAttributesProperty, Value = FontAttributes.Bold},
-					new Setter { Property = View.MarginProperty, Value = new Thickness(20,20)},
+					new Setter {Property = View.MarginProperty, Value = new Thickness(20,20)},
 					new Setter {Property = View.HorizontalOptionsProperty, Value = LayoutOptions.Fill}
 				},
 				BasedOn = dashboardPageBucketTextStyle
 			};
 			StyleDictionary.Add("dashboardPageBucketNumberStyle", dashboardPageBucketNumberStyle);
 
-            var dashboardPageBucketNumberLargeStyle = new Style(typeof(Label))
-            {
-                Setters =
-                {
-                    new Setter {Property = Label.FontSizeProperty, Value = 75}
-                },
-                BasedOn = dashboardPageBucketNumberStyle
-            };
-            StyleDictionary.Add("dashboardPageBucketNumberLargeStyle", dashboardPageBucketNumberLargeStyle);
+			var dashboardPageBucketNumberLargeStyle = new Style(typeof(Label))
+			{
+				Setters =
+				{
+					new Setter {Property = View.MarginProperty, Value = new Thickness(10,10)},
+					new Setter {Property = Label.FontSizeProperty, Value = 75}
+				},
+				BasedOn = dashboardPageBucketNumberStyle
+			};
+			StyleDictionary.Add("dashboardPageBucketNumberLargeStyle", dashboardPageBucketNumberLargeStyle);
 
-            // bucket - item type label
-            var dashboardPageBucketItemTypeStyle = new Style(typeof(Label))
+			var cardTitleLargeStyle = new Style(typeof(Label))
+			{
+				Setters =
+				{
+					new Setter {Property = View.MarginProperty, Value = new Thickness(10,10,10,0)},
+					new Setter {Property = Label.FontSizeProperty, Value = 75}
+				},
+				BasedOn = dashboardPageBucketNumberStyle
+			};
+			StyleDictionary.Add("cardTitleLargeStyle", cardTitleLargeStyle);
+
+			// bucket - item type label
+			var dashboardPageBucketItemTypeStyle = new Style(typeof(Label))
 			{
 				Setters =
 				{
@@ -227,63 +252,63 @@ namespace WineTracker.Styles
 				Setters =
 				{
 					new Setter {Property = Label.FontSizeProperty, Value = 20},
-                    new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
-                },
+					new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
+				},
 				BasedOn = dashboardPageBucketTextStyle
 			};
 			StyleDictionary.Add("dashboardPageGroupTitleStyle", dashboardPageGroupTitleStyle);
 
-            var dashboardPageGroupSubTitleStyle = new Style(typeof(Label))
-            {
-                Setters =
-                {
-                    new Setter {Property = Label.FontSizeProperty, Value = 15},
-                    new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
-                },
-                BasedOn = dashboardPageBucketTextStyle
-            };
-            StyleDictionary.Add("dashboardPageGroupSubTitleStyle", dashboardPageGroupSubTitleStyle);
+			var dashboardPageGroupSubTitleStyle = new Style(typeof(Label))
+			{
+				Setters =
+				{
+					new Setter {Property = Label.FontSizeProperty, Value = 15},
+					new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
+				},
+				BasedOn = dashboardPageBucketTextStyle
+			};
+			StyleDictionary.Add("dashboardPageGroupSubTitleStyle", dashboardPageGroupSubTitleStyle);
 
-            // bucket - Wine Card Labels - WINE NAME
-            var dashboardWineCardWineNameTitleStyle = new Style(typeof(Label))
-            {
-                Setters =
-                {
-                    new Setter {Property = Label.FontSizeProperty, Value = 40},
-                    new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
-                },
-                BasedOn = dashboardPageBucketTextStyle
-            };
-            StyleDictionary.Add("dashboardWineCardWineNameTitleStyle", dashboardWineCardWineNameTitleStyle);
+			// bucket - Wine Card Labels - WINE NAME
+			var dashboardWineCardWineNameTitleStyle = new Style(typeof(Label))
+			{
+				Setters =
+				{
+					new Setter {Property = Label.FontSizeProperty, Value = 40},
+					new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
+				},
+				BasedOn = dashboardPageBucketTextStyle
+			};
+			StyleDictionary.Add("dashboardWineCardWineNameTitleStyle", dashboardWineCardWineNameTitleStyle);
 
-            // bucket - Wine Card Labels - WINE NAME
-            var dashboardWineCardWineYearTitleStyle = new Style(typeof(Label))
-            {
-                Setters =
-                {
-                    new Setter {Property = Label.FontSizeProperty, Value = 25},
-                    new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
-                },
-                BasedOn = dashboardPageBucketTextStyle
-            };
-            StyleDictionary.Add("dashboardWineCardWineYearTitleStyle", dashboardWineCardWineYearTitleStyle);
+			// bucket - Wine Card Labels - WINE NAME
+			var dashboardWineCardWineYearTitleStyle = new Style(typeof(Label))
+			{
+				Setters =
+				{
+					new Setter {Property = Label.FontSizeProperty, Value = 25},
+					new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
+				},
+				BasedOn = dashboardPageBucketTextStyle
+			};
+			StyleDictionary.Add("dashboardWineCardWineYearTitleStyle", dashboardWineCardWineYearTitleStyle);
 
-            // bucket - Wine Card Labels - WINE YEAR
-            var dashboardWineCardDefaultLabelStyle = new Style(typeof(Label))
-            {
-                Setters =
-                {
-                    new Setter {Property = Label.FontSizeProperty, Value = 20},
-                    new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
-                },
-                BasedOn = dashboardPageBucketTextStyle
-            };
-            StyleDictionary.Add("dashboardWineCardDefaultLabelStyle", dashboardWineCardDefaultLabelStyle);
+			// bucket - Wine Card Labels - WINE YEAR
+			var dashboardWineCardDefaultLabelStyle = new Style(typeof(Label))
+			{
+				Setters =
+				{
+					new Setter {Property = Label.FontSizeProperty, Value = 20},
+					new Setter {Property = Label.TextColorProperty, Value = BrandColor.WarmGray},
+				},
+				BasedOn = dashboardPageBucketTextStyle
+			};
+			StyleDictionary.Add("dashboardWineCardDefaultLabelStyle", dashboardWineCardDefaultLabelStyle);
 
 
 
-            // pickTicket - ticket separator - default
-            var dashboardPageTicketSeparatorDefaultStyle = new Style(typeof(BoxView))
+			// pickTicket - ticket separator - default
+			var dashboardPageTicketSeparatorDefaultStyle = new Style(typeof(BoxView))
 			{
 				Setters =
 				{

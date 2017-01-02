@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using FreshMvvm;
+using Plugin.Media;
 using Tesseract;
 using Tesseract.iOS;
 using WineTracker.Helpers;
 using WineTracker.Interface;
-using WineTracker.RepositoryServices;
-using WineTracker.RepositoryServices.Components;
-using WineTracker.RepositoryServices.Components.ExternalServices;
 using WineTracker.ViewModels;
 using Xamarin.Forms;
 using Constants = WineTracker.Helpers.Constants;
 using WineTracker.Styles;
 using WineTracker.NavigationService;
+using WineTracker.Services;
+using WineTracker.Services.Components;
+using WineTracker.Services.Components.ExternalServices;
 using XLabs.Forms.Controls;
+using XLabs.Platform.Services.Media;
 
 namespace WineTracker
 {
@@ -61,7 +63,8 @@ namespace WineTracker
             FreshIOC.Container.Register<ITesseractApi, TesseractApi>();
             FreshIOC.Container.Register<IWineHunterComponent, WineHunterComponent>();
             FreshIOC.Container.Register<IGeoLocationComponent, GeoLocationComponent>();
-
+            FreshIOC.Container.Register<IDirectLineApiClient, DirectLineApiClient>();
+            FreshIOC.Container.Register<IChatServices, ChatServices>();
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();
             FreshIOC.Container.Register<ICognitiveService, CognitiveService>();
