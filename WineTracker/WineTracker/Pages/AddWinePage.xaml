@@ -4,6 +4,7 @@
              xmlns:pages="clr-namespace:WineTracker.Pages;assembly=WineTracker"
              xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
              xmlns:controls="clr-namespace:WineTracker.Controls;assembly=WineTracker"
+             xmlns:controls1="clr-namespace:WineTracker.Pages.Controls;assembly=WineTracker"
              x:Class="WineTracker.Pages.AddWinePage">
 
   <pages:EditPage.ToolbarItems>
@@ -38,11 +39,12 @@
           <controls:ChatListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Events }" >
            <controls:ChatListView.ItemTemplate>
              <DataTemplate>
-               <controls:MessageViewCell>
+               <controls1:MessageViewCell>
                  <StackLayout Orientation="Horizontal">
-                   <Label Text="test"></Label>
+                   <Label Text="{Binding AuthorName}"></Label>
+                   <Label Text="{Binding Text}"></Label>
                  </StackLayout>
-               </controls:MessageViewCell>  
+               </controls1:MessageViewCell>  
              </DataTemplate>
            </controls:ChatListView.ItemTemplate>
           </controls:ChatListView>

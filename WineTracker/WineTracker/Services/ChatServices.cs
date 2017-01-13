@@ -17,8 +17,12 @@ namespace WineTracker.Services
         public ChatServices(IDirectLineApiClient directLineApiClient)
         {
             _directLineApiClient = directLineApiClient;
-            _directLineApiClient.SetClientSecret("");
+            // Get BOT Token
+            _directLineApiClient.Initialize(App.DirectLineKey);
+
+            //Add First BOT Message Here
             Messages = new ObservableCollection<Event>();
+
         }
 
         public ObservableCollection<Event> Messages { get; private set; }
@@ -27,7 +31,18 @@ namespace WineTracker.Services
         /// </summary>
         public async Task SendMessage(string messageText)
         {
-    
+            await Task.Run(() =>
+            {
+                Messages.Add(new TextMessage
+                {
+                    AuthorName = "Andrew",
+                    Body = messageText,
+                  
+                    IsAdmin = true,
+                    Timestamp = DateTime.Now
+                });
+            });
+
 
         }
 

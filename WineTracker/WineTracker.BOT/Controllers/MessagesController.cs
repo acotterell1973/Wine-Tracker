@@ -1,8 +1,11 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
 using Microsoft.Bot.Connector;
 using WineTracker.BOT.DIalog;
 
@@ -11,15 +14,35 @@ namespace WineTracker.BOT
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        internal static IDialog<WineHunterCaptureDialog> MakeRootDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(WineHunterCaptureDialog.BuildForm));
+        }
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
         /// </summary>
+        [ResponseType(typeof(void))]
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
-            if (activity != null && activity.Type == ActivityTypes.Message)
+            if (activity != null)
             {
-                await Conversation.SendAsync(activity, ()=> new EchoDialog() );
+                // one of these will have an interface and process it
+                switch (activity.GetActivityType())
+                {
+                    case ActivityTypes.Message:
+                        await Conversation.SendAsync(activity, MakeRootDialog);
+                        break;
+                    case ActivityTypes.ConversationUpdate:
+                    case ActivityTypes.ContactRelationUpdate:
+                    case ActivityTypes.Typing:
+                    case ActivityTypes.DeleteUserData:
+                    default:
+                        Trace.TraceError($"Unknown activity type ignored: {activity.GetActivityType()}");
+                        break;
+                }
+                
 
                 //ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 //// calculate something for us to return

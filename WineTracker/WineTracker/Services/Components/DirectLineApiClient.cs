@@ -10,27 +10,38 @@ using Conversation = WineTracker.Models.DirectLineClient.Conversation;
 
 namespace WineTracker.Services.Components
 {
+
     public class DirectLineApiClient : IDirectLineApiClient
     {
-    
-        public readonly string _directLineKey;
-        private Conversation _lastConversation;
+
+        private string _directLineKey;
+        private string _directLineToken;
+        private string _conversationId;
+
 
         private const string Host = "https://directline.botframework.com";
 
         private static readonly string ConversationsApi = $"{Host}/v3/directline/conversations";
 
-        private string _botSecret;
-        public DirectLineApiClient()
-        {
 
+        public void Initialize(string directLineSecret)
+        {
+            if (string.IsNullOrEmpty(directLineSecret))
+                throw new ArgumentException("Argument is null or empty", nameof(directLineSecret));
+
+            _directLineKey = directLineSecret;
+            Task.Run(async () =>
+            {
+                var token = await GetTokenAsync();
+                _directLineToken = token.Token;
+                _conversationId = token.ConversationId;
+                //We don't need the secret after we have a token
+                //With the refresh we will use the token
+                _directLineKey = string.Empty;
+            }).Wait();
         }
 
-        public void SetClientSecret(string botSecret)
-        {
-            _botSecret = botSecret;
-        }
-        public async Task GetToken()
+        private async Task<AuthenticationResponse> GetTokenAsync()
         {
 
             using (var httpClient = new HttpClient())
@@ -41,12 +52,14 @@ namespace WineTracker.Services.Components
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineKey);
 
                 var response = await httpClient.GetStringAsync("/v3/directline/tokens/generate");
-                JsonConvert.DeserializeObject<AuthenticationResponse>(response);
+                var token = JsonConvert.DeserializeObject<AuthenticationResponse>(response);
+                return token;
+
             }
 
         }
 
-        public async Task RefreshToken()
+        public async Task RefreshTokenAsync()
         {
 
             using (var httpClient = new HttpClient())
@@ -54,7 +67,7 @@ namespace WineTracker.Services.Components
                 httpClient.BaseAddress = new Uri($"{Host}");
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _botSecret);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineToken);
 
                 var response = await httpClient.GetStringAsync("/v3/directline/tokens/refresh");
                 JsonConvert.DeserializeObject<AuthenticationResponse>(response);
@@ -71,19 +84,25 @@ namespace WineTracker.Services.Components
             using (var httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _botSecret);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineToken);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var response = await httpClient.PostAsync(ConversationsApi, null);
 
                 response.EnsureSuccessStatusCode();
 
-                return JsonConvert.DeserializeObject<StartConversationResponse>(await response.Content.ReadAsStringAsync());
+                var startConversationResponse = JsonConvert.DeserializeObject<StartConversationResponse>(await response.Content.ReadAsStringAsync());
+                _conversationId = startConversationResponse.ConversationId;
+                return startConversationResponse;
             }
         }
 
+        public async Task SendMessageAsync(string from, string text)
+        {
+            await SendMessageAsync(_conversationId, from, text);
+        }
         public async Task SendMessageAsync(string conversationId, string from, string text)
         {
-            string url = $"{Host}/api/conversations/{conversationId}/activities";
+            string url = $"{ConversationsApi}/{conversationId}/activities";
 
             var message = new Message
             {
@@ -96,7 +115,7 @@ namespace WineTracker.Services.Components
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _botSecret);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineToken);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var response = await httpClient.PostAsync(url, content);
@@ -122,7 +141,7 @@ namespace WineTracker.Services.Components
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _botSecret);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineToken);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var response = await httpClient.PostAsync(url, content);
@@ -146,7 +165,7 @@ namespace WineTracker.Services.Components
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _botSecret);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineToken);
                 var response = await httpClient.GetStringAsync(url);
 
                 return JsonConvert.DeserializeObject<ReconnectMessageResponse>(response);
@@ -158,7 +177,7 @@ namespace WineTracker.Services.Components
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _botSecret);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineToken);
                 var response = await httpClient.GetStringAsync(url);
 
                 return JsonConvert.DeserializeObject<ConversationMessages>(response);

@@ -42,19 +42,6 @@ namespace WineTracker.ViewModels
             base.Init(initData);
             Model = new WineItemInfo();
 
-            Task.Run(() =>
-           {
-               IsBusy = true;
-               _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, "System"));
-               IsBusy = false;
-                //Device.BeginInvokeOnMainThread(() =>
-                //{
-                //    ScanbarCode.Execute(null);
-                //});
-                // Model = await QueryUpc("0010986007634");
-            }, _cancellationToken.Token);
-
-
         }
 
         #region property
@@ -104,28 +91,21 @@ namespace WineTracker.ViewModels
             }
         }
 
-        public ICommand SendMessageCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await CoreMethods.PopPageModel();
-                });
-            }
-        }
+        public ICommand SendMessageCommand => new Command(OnSendMessage);
+
         #endregion
 
 
         #region Helpers
 
-        private void OnSendMessage()
+        private async void OnSendMessage()
         {
             if (string.IsNullOrEmpty(ChatInputText))
                 return;
-            string text = ChatInputText;
+            var text = ChatInputText;
             ChatInputText = string.Empty;
-            _chatServices.SendMessage(text);
+            await _chatServices.SendMessage(text);
+           _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, "Andrew"));
         }
         private async Task<WineItemInfo> QueryUpc(string upc)
         {
@@ -202,7 +182,7 @@ namespace WineTracker.ViewModels
             return true;
         }
 
-     
+
 
         #endregion
     }

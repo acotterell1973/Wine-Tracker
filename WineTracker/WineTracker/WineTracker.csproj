@@ -40,8 +40,9 @@
     <Compile Include="App.cs" />
     <Compile Include="AsyncErrorHandler.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Controls\ChatListView.cs" />
-    <Compile Include="Controls\MessageViewCell.cs" />
+    <Compile Include="Models\DirectLineClient\BotUser.cs" />
+    <Compile Include="Pages\Controls\ChatListView.cs" />
+    <Compile Include="Pages\Controls\MessageViewCell.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\NamedObservableCollection.cs" />
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />

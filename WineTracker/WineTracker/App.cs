@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using FreshMvvm;
-using Plugin.Media;
 using Tesseract;
 using Tesseract.iOS;
 using WineTracker.Helpers;
 using WineTracker.Interface;
+using WineTracker.Models.DirectLineClient;
 using WineTracker.ViewModels;
 using Xamarin.Forms;
 using Constants = WineTracker.Helpers.Constants;
@@ -14,15 +14,14 @@ using WineTracker.NavigationService;
 using WineTracker.Services;
 using WineTracker.Services.Components;
 using WineTracker.Services.Components.ExternalServices;
-using XLabs.Forms.Controls;
-using XLabs.Platform.Services.Media;
 
 namespace WineTracker
 {
     public class App : Application
     {
-
-
+        public static string DirectLineKey = "";
+        public BotUser BotSender = new BotUser { Id = "2CC8343", DisplayName = "You" };
+        public BotUser BotFriend = new BotUser { Id = "BADB229", DisplayName = "WineHunter Bot" };
         public App()
         {
 

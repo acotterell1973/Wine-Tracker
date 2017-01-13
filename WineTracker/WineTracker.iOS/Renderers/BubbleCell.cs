@@ -61,7 +61,17 @@ namespace WineTracker.iOS.Renderers
 
         internal static SizeF GetSizeForText(UIView tv, string text)
         {
-            return new SizeF();// tv.StringSize(text, Font, new SizeF(tv.Bounds.Width * .7f - 10 - 22, 99999));
+            var nsText = new NSString(text);
+            nsText.GetSizeUsingAttributes(new UIStringAttributes { Font = Font });
+            var options = NSStringDrawingOptions.UsesFontLeading | NSStringDrawingOptions.UsesLineFragmentOrigin;
+            var attributes = new UIStringAttributes
+            {
+                Font = Font
+            };
+
+            var boundSize = new SizeF((float) (tv.Bounds.Width*.7f - 10 - 22), 99999);
+            var sizeF = nsText.GetBoundingRect(boundSize, options, attributes, null).Size;
+            return (SizeF) sizeF;
         }
 
         public void Update(string text)

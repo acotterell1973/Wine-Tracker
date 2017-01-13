@@ -123,6 +123,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="DIalog\EchoDialog.cs" />
     <Compile Include="DIalog\AlarmDialog.cs" />
+    <Compile Include="DIalog\WineHunterCaptureDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
