@@ -40,7 +40,12 @@
     <Compile Include="App.cs" />
     <Compile Include="AsyncErrorHandler.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="KeyboardHelper.cs" />
     <Compile Include="Models\DirectLineClient\BotUser.cs" />
+    <Compile Include="Pages\ChatBotPage.xaml.cs">
+      <DependentUpon>ChatBotPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Controls\ChatList.cs" />
     <Compile Include="Pages\Controls\ChatListView.cs" />
     <Compile Include="Pages\Controls\MessageViewCell.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Pages\AddWinePage.xaml.cs">
       <DependentUpon>AddWinePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Controls\ScalableEntry.cs" />
     <Compile Include="Pages\EditPage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -139,6 +145,7 @@
     <Compile Include="ViewModels\AddWineViewModel.cs" />
     <Compile Include="ViewModels\BaseNotificationHandler.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ChatBotViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\ScanProductViewModel.cs" />
@@ -325,7 +332,12 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ChatBotPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>

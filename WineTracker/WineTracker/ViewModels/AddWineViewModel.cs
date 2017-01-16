@@ -25,6 +25,7 @@ namespace WineTracker.ViewModels
         private IChatServices _chatServices;
         private readonly ICognitiveService _cognitiveService;
         private CancellationTokenSource _cancellationToken;
+        private const float DefaultChatWindowHeight = 500;
 
         public AddWineViewModel(IUpcCodeService upcCodeSerivce, IWineHunterComponent wineHunterComponent, ICognitiveService cognitiveService, IChatServices chatServices)
         {
@@ -42,6 +43,12 @@ namespace WineTracker.ViewModels
             base.Init(initData);
             Model = new WineItemInfo();
 
+            //Adjust the chat windows when the keyboad is open or close.
+            KeyboardHelper.KeyboardChanged += (sender, e) =>
+            {
+                //Default Height is 500
+                ChatLayoutHeight = e.Visible ? ChatLayoutHeight - (e.Height + 20) : DefaultChatWindowHeight;
+            };
         }
 
         #region property
@@ -51,6 +58,8 @@ namespace WineTracker.ViewModels
         public string MessageLabel { get; set; }
         public string Status { get; set; }
         public ImageSource ImageSource { get; set; }
+
+        public float ChatLayoutHeight { get; set; } = DefaultChatWindowHeight;
         #endregion
 
 
@@ -105,7 +114,8 @@ namespace WineTracker.ViewModels
             var text = ChatInputText;
             ChatInputText = string.Empty;
             await _chatServices.SendMessage(text);
-           _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, "Andrew"));
+
+            _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, App.BotSender.DisplayName));
         }
         private async Task<WineItemInfo> QueryUpc(string upc)
         {

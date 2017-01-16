@@ -33,7 +33,7 @@
 
       <!-- BOT CHAT -->
 
-      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="450" >
+      <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="{Binding ChatLayoutHeight, Mode=TwoWay}"  >
         <StackLayout  Orientation="Vertical">
 
           <controls:ChatListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Events }" >

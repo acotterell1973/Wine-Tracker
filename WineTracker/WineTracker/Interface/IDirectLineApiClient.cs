@@ -5,7 +5,7 @@ namespace WineTracker.Interface
 {
     public interface IDirectLineApiClient
     {
-        void Initialize(string directLineSecret);
+        string Initialize(string directLineSecret);
         Task RefreshTokenAsync();
 
         /// <summary>

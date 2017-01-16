@@ -19,9 +19,9 @@ namespace WineTracker
 {
     public class App : Application
     {
-        public static string DirectLineKey = "";
-        public BotUser BotSender = new BotUser { Id = "2CC8343", DisplayName = "You" };
-        public BotUser BotFriend = new BotUser { Id = "BADB229", DisplayName = "WineHunter Bot" };
+        public static string DirectLineKey = "Yw6Eq8yum9A.cwA.ksU.D03WNexhL_LBCPUtb1jF78EqeNttBTtyw4bVp_yeKrA";
+        public static BotUser BotSender = new BotUser { Id = "2CC8343", DisplayName = "You" };
+        public static BotUser BotFriend = new BotUser { Id = "BADB229", DisplayName = "WineHunter Bot" };
         public App()
         {
 
@@ -43,7 +43,7 @@ namespace WineTracker
         private void RegisterRootNavigation()
         {
 
-            var loginPage = FreshPageModelResolver.ResolvePageModel<LoginViewModel>();
+            var loginPage = FreshPageModelResolver.ResolvePageModel<ChatBotViewModel>();
             var loginContainer = new FreshNavigationContainer(loginPage, NavigationContainerNames.AuthenticationContainer);
             var masterDetailContainer = new ThemedMasterDetailNavigationContainer(NavigationContainerNames.MainContainer);
             masterDetailContainer.Init("Menu", "Menu-30.png");

@@ -108,12 +108,18 @@
     <Compile Include="Implementation\KeyboardHelper.cs" />
     <Compile Include="Implementation\SqliteDatabase.cs" />
     <Compile Include="Implementation\Telemetry.cs" />
+    <Compile Include="KeyboardHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\BubbleCell.cs" />
     <Compile Include="Renderers\ChatBubble.cs" />
     <Compile Include="Renderers\ChatListViewRenderer.cs" />
     <Compile Include="Renderers\FrameExtRenderer.cs" />
+    <Compile Include="Renderers\JSQMessages\ChatHelpers\JSQMessages.cs" />
+    <Compile Include="Renderers\JSQMessages\ChatHelpers\MessageFactory.cs" />
+    <Compile Include="Renderers\JSQMessages\ChatBotPageRenderer.cs" />
+    <Compile Include="Renderers\JSQMessages\JSQMessageLayoutPosition.cs" />
+    <Compile Include="Renderers\JSQMessages\ScalableEntryRenderer.cs" />
     <Compile Include="Renderers\MessageRenderer.cs" />
     <Compile Include="Renderers\NavigationPageRenderer.cs" />
     <Compile Include="Renderers\WineContentPageRenderer.cs" />
@@ -157,8 +163,8 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AirshipBindings, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\urbanairship.3.1.1\lib\Xamarin.iOS10\AirshipBindings.dll</HintPath>
+    <Reference Include="AirshipBindings, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\urbanairship.4.0.0\lib\Xamarin.iOS10\AirshipBindings.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Akavache, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -180,6 +186,9 @@
     <Reference Include="FreshEssentials.iOS, Version=1.0.6122.21142, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FreshEssentials.2.1.2\lib\Xamarin.iOS10\FreshEssentials.iOS.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="JSQMessagesViewController">
+      <HintPath>..\..\Components\jsqmessagesviewcontroller-7.2.0\lib\ios-unified\JSQMessagesViewController.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNetCore.WebUtilities.1.1.0\lib\netstandard1.3\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
@@ -364,9 +373,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <XamarinComponentReference Include="jsqmessagesviewcontroller">
+      <Visible>False</Visible>
+      <Version>7.2.0</Version>
+    </XamarinComponentReference>
     <XamarinComponentReference Include="urbanairship">
       <Visible>False</Visible>
-      <Version>2.2.2</Version>
+      <Version>4.0.0</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>

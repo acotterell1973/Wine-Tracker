@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -24,21 +25,28 @@ namespace WineTracker.Services.Components
         private static readonly string ConversationsApi = $"{Host}/v3/directline/conversations";
 
 
-        public void Initialize(string directLineSecret)
+        public string Initialize(string directLineSecret)
         {
             if (string.IsNullOrEmpty(directLineSecret))
                 throw new ArgumentException("Argument is null or empty", nameof(directLineSecret));
 
             _directLineKey = directLineSecret;
-            Task.Run(async () =>
-            {
-                var token = await GetTokenAsync();
-                _directLineToken = token.Token;
-                _conversationId = token.ConversationId;
-                //We don't need the secret after we have a token
-                //With the refresh we will use the token
-                _directLineKey = string.Empty;
-            }).Wait();
+            var tsk = Task.Run(async () =>
+              {
+                  var token = await GetTokenAsync();
+                  _directLineToken = token.Token;
+
+                  var startConversation = await StartConversationAsync();
+                  _directLineToken = startConversation.Token;
+                  _conversationId = startConversation.ConversationId;
+
+                  //We don't need the secret after we have a token
+                  //With the refresh we will use the token
+                  _directLineKey = string.Empty;
+              });
+
+            tsk.Wait();
+            return _conversationId;
         }
 
         private async Task<AuthenticationResponse> GetTokenAsync()
@@ -51,11 +59,19 @@ namespace WineTracker.Services.Components
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _directLineKey);
 
-                var response = await httpClient.GetStringAsync("/v3/directline/tokens/generate");
-                var token = JsonConvert.DeserializeObject<AuthenticationResponse>(response);
-                return token;
 
+                var response = await httpClient.PostAsync("/v3/directline/tokens/generate", null);
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var token = JsonConvert.DeserializeObject<AuthenticationResponse>(content);
+                        return token;
+                    }
+                }
             }
+            return null;
 
         }
 
@@ -88,11 +104,13 @@ namespace WineTracker.Services.Components
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var response = await httpClient.PostAsync(ConversationsApi, null);
 
-                response.EnsureSuccessStatusCode();
-
-                var startConversationResponse = JsonConvert.DeserializeObject<StartConversationResponse>(await response.Content.ReadAsStringAsync());
-                _conversationId = startConversationResponse.ConversationId;
-                return startConversationResponse;
+                if (response.IsSuccessStatusCode)
+                {
+                    var startConversationResponse = JsonConvert.DeserializeObject<StartConversationResponse>(await response.Content.ReadAsStringAsync());
+                    _conversationId = startConversationResponse.ConversationId;
+                    return startConversationResponse;
+                }
+                return null;
             }
         }
 
@@ -122,7 +140,10 @@ namespace WineTracker.Services.Components
 
                 if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                 {
-                    // TODO: response.EnsureSuccessStatusCode();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        
+                    }
                 }
             }
         }
@@ -174,6 +195,11 @@ namespace WineTracker.Services.Components
         public async Task<ConversationMessages> GetMessagesAsync(string conversationId, string watermark)
         {
             string url = $"{ConversationsApi}/{conversationId}/activities?watermark={watermark}";
+
+            if (string.IsNullOrEmpty(watermark))
+            {
+                url = $"{ConversationsApi}/{conversationId}/activities";
+            }
 
             using (var httpClient = new HttpClient())
             {
