@@ -39,7 +39,16 @@ namespace WineTracker
 
             RegisterDependancies();
             RegisterRootNavigation();
+
+            BotMessageHandler.BotMessageEventReceived += BotMessageHandler_BotMessageEventReceived;
+            
         }
+
+        private void BotMessageHandler_BotMessageEventReceived(object sender, EventHandler.BotMessageEventEventArgs e)
+        {
+            BotMessageHandler.PublishMessage("pcl", "pcl");
+        }
+
         private void RegisterRootNavigation()
         {
 

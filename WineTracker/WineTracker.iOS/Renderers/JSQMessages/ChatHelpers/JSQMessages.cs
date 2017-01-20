@@ -2,12 +2,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Foundation;
 using JSQMessagesViewController;
 using UIKit;
+using WineTracker.iOS.Implementation;
 using WineTracker.Models.DirectLineClient;
+using WineTracker.Pages;
 using Message = JSQMessagesViewController.Message;
 
 namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
@@ -21,12 +24,8 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
 
         public BotUser sender { get; set; } //look at the model, sender is given from the forms page
 
-        //just created this to demo how to create a new chat user
-        BotUser friend = new BotUser { Id = "BADB229", DisplayName = "Tom Anderson" };
-
-        MessageFactory messageFactory = new MessageFactory();
-
-        public event EventHandler closePage;
+        
+        public event System.EventHandler closePage;
 
         public override void ViewDidLoad()
         {
@@ -49,15 +48,13 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
             CollectionView.CollectionViewLayout.IncomingAvatarViewSize = CoreGraphics.CGSize.Empty;
             CollectionView.CollectionViewLayout.OutgoingAvatarViewSize = CoreGraphics.CGSize.Empty;
 
+            //List for message from Notification Center (coming from the PCL)
+            NSNotificationCenter.DefaultCenter.AddObserver((NSString)"OnMessegeReceviedNotification", OnMessegeReceviedNotification);
+        }
 
-            // Load some messages to start
-            messages.Add(new Message(friend.Id, friend.DisplayName, NSDate.DistantPast, "Hi There"));
-            
-
-            //we use this to generate random messages
-            Timer timer = new Timer(2000);
-            timer.Elapsed += async (sender, e) => await HandleTimer();
-            timer.Start();
+        private void OnMessegeReceviedNotification(NSNotification notification)
+        {
+            var x = notification.UserInfo;
         }
 
         public override void ViewDidAppear(bool animated)
@@ -136,38 +133,21 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
 
             var message = new Message(SenderId, SenderDisplayName, NSDate.Now, text);
             messages.Add(message);
+            var botMessage = new Activity {From = new From() {Id = SenderId}, Text = text};
 
+            var messageAttrs = new Dictionary<string, string>
+                {
+                    {"SENDERID", senderId},
+                    {"SENDERDISPLAYNAME", SenderDisplayName},
+                    {"MESSAGE", text},
+                };
+
+            var messageDict = NSDictionary.FromObjectsAndKeys(messageAttrs.Values.ToArray(), messageAttrs.Keys.ToArray());
+            NSNotificationCenter.DefaultCenter.PostNotificationName((NSString)"OnMessegeSendNotification", this, messageDict);
             FinishSendingMessage(true);
 
             await Task.Delay(500);
-
-            await SimulateDelayedMessageReceived();
         }
-
-        async Task SimulateDelayedMessageReceived()
-        {
-            ShowTypingIndicator = true;
-
-            ScrollToBottom(true);
-
-            var delay = Task.Delay(1500);
-            var message = await messageFactory.CreateMessageAsync(friend);
-            await delay;
-
-            messages.Add(message);
-
-            ScrollToBottom(true);
-
-            SystemSoundPlayer.PlayMessageReceivedSound();
-
-            FinishReceivingMessage(true);
-        }
-
-        private async Task HandleTimer()
-        {
-            await SimulateDelayedMessageReceived();
-        }
-
-
+        
     }
 }

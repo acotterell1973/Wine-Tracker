@@ -103,6 +103,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AkavacheSqliteLinkerOverride.cs" />
+    <Compile Include="Implementation\BotMessageHandler.cs" />
     <Compile Include="Implementation\ClearWebViewCache.cs" />
     <Compile Include="Implementation\FileService.cs" />
     <Compile Include="Implementation\KeyboardHelper.cs" />

@@ -12,3 +12,13 @@ e. create a micro-service scrap upc info
 1. Group By Wine Category
 2. Show alcholog content levels
 3. Manual Enter Wine Name and return a list to select from.
+
+
+
+
+NOTES:
+iOS Chat: https://github.com/IncredibleWeb/Xamarin-Forms-Chat-Client
+iOS JSQMessages https://github.com/rlingineni/Xamarin.Forms-ChatMessenger/tree/master/chatmessenger
+
+WEBSOCKETS PCL
+https://github.com/NVentimiglia/Websockets.PCL

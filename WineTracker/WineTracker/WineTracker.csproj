@@ -39,13 +39,14 @@
     <Compile Include="AkavacheSqliteLinkerOverride.cs" />
     <Compile Include="App.cs" />
     <Compile Include="AsyncErrorHandler.cs" />
+    <Compile Include="BotMessageHandler.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="EventHandler\IBotMessageHandler.cs" />
     <Compile Include="KeyboardHelper.cs" />
     <Compile Include="Models\DirectLineClient\BotUser.cs" />
     <Compile Include="Pages\ChatBotPage.xaml.cs">
       <DependentUpon>ChatBotPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Controls\ChatList.cs" />
     <Compile Include="Pages\Controls\ChatListView.cs" />
     <Compile Include="Pages\Controls\MessageViewCell.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
@@ -183,6 +184,9 @@
     <Reference Include="FreshMvvm, Version=1.0.6071.17008, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FreshMvvm.2.2.0\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\FreshMvvm.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="JSQMessagesViewController">
+      <HintPath>..\..\Components\jsqmessagesviewcontroller-7.2.0\lib\ios-unified\JSQMessagesViewController.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ProjectOxford.Face, Version=1.2.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.ProjectOxford.Face.1.2.1.2\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Microsoft.ProjectOxford.Face.dll</HintPath>
