@@ -7,9 +7,9 @@ using System.Web.Http.Description;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.FormFlow;
 using Microsoft.Bot.Connector;
-using WineTracker.BOT.DIalog;
+using winetracker.bot.connector.FormFlow;
 
-namespace WineTracker.BOT
+namespace winetracker.bot.connector.Controllers
 {
     [BotAuthentication]
     public class MessagesController : ApiController

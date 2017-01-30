@@ -20,9 +20,11 @@ namespace WineTracker.iOS.Implementation
         private void OnMessegeSendNotification(NSNotification notification)
         {
             var messageData = notification.Object;
-            var x = notification.UserInfo;
+            var messageDictionary = notification.UserInfo;
+            var messageString = messageDictionary.ValueForKey(new NSString("MESSAGE"));
+            var senderIdString = messageDictionary.ValueForKey(new NSString("SENDERID"));
             //Send the event to the PCL Library with the Bot Message
-            BotMessageEvent?.Invoke(this, new BotMessageEventEventArgs("", ""));
+            BotMessageEvent?.Invoke(this, new BotMessageEventEventArgs(senderIdString.ToString(), messageString.ToString()));
         }
 
         public void UpdateUiWithResponse(string messageType, string message)

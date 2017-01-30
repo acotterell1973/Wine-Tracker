@@ -4,13 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Timers;
+using CoreGraphics;
 using Foundation;
 using JSQMessagesViewController;
 using UIKit;
-using WineTracker.iOS.Implementation;
 using WineTracker.Models.DirectLineClient;
-using WineTracker.Pages;
 using Message = JSQMessagesViewController.Message;
 
 namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
@@ -23,7 +21,6 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
         public List<Message> messages = new List<Message>();
 
         public BotUser sender { get; set; } //look at the model, sender is given from the forms page
-
         
         public event System.EventHandler closePage;
 
@@ -45,16 +42,11 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
             InputToolbar.ContentView.LeftBarButtonItem = null;
 
             // Remove the Avatars
-            CollectionView.CollectionViewLayout.IncomingAvatarViewSize = CoreGraphics.CGSize.Empty;
-            CollectionView.CollectionViewLayout.OutgoingAvatarViewSize = CoreGraphics.CGSize.Empty;
+            CollectionView.CollectionViewLayout.IncomingAvatarViewSize = CGSize.Empty;
+            CollectionView.CollectionViewLayout.OutgoingAvatarViewSize = CGSize.Empty;
 
-            //List for message from Notification Center (coming from the PCL)
+            //Listen for message from Notification Center (coming from the PCL Lib)
             NSNotificationCenter.DefaultCenter.AddObserver((NSString)"OnMessegeReceviedNotification", OnMessegeReceviedNotification);
-        }
-
-        private void OnMessegeReceviedNotification(NSNotification notification)
-        {
-            var x = notification.UserInfo;
         }
 
         public override void ViewDidAppear(bool animated)
@@ -129,25 +121,54 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
 
         public override async void PressedSendButton(UIButton button, string text, string senderId, string senderDisplayName, NSDate date)
         {
+            InputToolbar.ContentView.TextView.Text = "";
+            InputToolbar.ContentView.RightBarButtonItem.Enabled = false;
             SystemSoundPlayer.PlayMessageSentSound();
 
             var message = new Message(SenderId, SenderDisplayName, NSDate.Now, text);
             messages.Add(message);
-            var botMessage = new Activity {From = new From() {Id = SenderId}, Text = text};
+            FinishSendingMessage(true);
+
+            //Show typing indicator to add to the natual feel of the bot
+            ShowTypingIndicator = true;
 
             var messageAttrs = new Dictionary<string, string>
                 {
                     {"SENDERID", senderId},
                     {"SENDERDISPLAYNAME", SenderDisplayName},
-                    {"MESSAGE", text},
+                    {"MESSAGE", text}
                 };
 
+            //Send the message to the PCL layer for processing via a NSNotification
             var messageDict = NSDictionary.FromObjectsAndKeys(messageAttrs.Values.ToArray(), messageAttrs.Keys.ToArray());
             NSNotificationCenter.DefaultCenter.PostNotificationName((NSString)"OnMessegeSendNotification", this, messageDict);
-            FinishSendingMessage(true);
 
-            await Task.Delay(500);
         }
-        
+        /// <summary>
+        /// Message Listener handler from the PCL library, 
+        /// since I could not find a easy to bind to the PCL
+        /// Message notification it is 
+        /// </summary>
+        /// <param name="notification"></param>
+        private void OnMessegeReceviedNotification(NSNotification notification)
+        {
+            var messageDictionary = notification.UserInfo;
+            //BOT Friendly name
+            var messageString = messageDictionary.ValueForKey(new NSString("MESSAGE")).ToString();
+            //BOT User Id
+            var senderIdString = messageDictionary.ValueForKey(new NSString("SENDERID")).ToString();
+
+            ScrollToBottom(true);
+            SystemSoundPlayer.PlayMessageReceivedSound();
+
+            //Add the message to JSQMessage Chat UI
+            var message = new Message(senderIdString, senderIdString, NSDate.Now, messageString);
+            messages.Add(message);
+            FinishSendingMessage(true);
+            //Show typing indicator to add to the natual feel of the bot
+            ShowTypingIndicator = false;
+            InputToolbar.ContentView.RightBarButtonItem.Enabled = true;
+        }
+
     }
 }

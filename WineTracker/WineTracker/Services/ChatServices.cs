@@ -9,17 +9,21 @@ using WineTracker.Interface;
 using WineTracker.Models;
 using WineTracker.Models.DirectLineClient;
 using WineTracker.Models.Messages;
+using WineTracker.Services.Components;
 
 namespace WineTracker.Services
 {
     public class ChatServices : ChatServicesBase, IChatServices
     {
         private readonly IDirectLineApiClient _directLineApiClient;
+        private readonly IWineHunterBotConnectorApitClient _wineHunterBotConnectorApitClient;
         private string _conversationId;
         private string _botWaterMark;
-        public ChatServices(IDirectLineApiClient directLineApiClient)
+        public ChatServices(IDirectLineApiClient directLineApiClient, IWineHunterBotConnectorApitClient wineHunterBotConnectorApitClient)
         {
             _directLineApiClient = directLineApiClient;
+            _wineHunterBotConnectorApitClient = wineHunterBotConnectorApitClient;
+            
             // Get BOT Token
             _conversationId = _directLineApiClient.Initialize(App.DirectLineKey);
 
@@ -38,7 +42,7 @@ namespace WineTracker.Services
             await Task.Run(async () =>
             {
                 //BOT Conversation
-
+                await _wineHunterBotConnectorApitClient.SendMessageAsync("Andrew", messageText);
                 await _directLineApiClient.SendMessageAsync(_conversationId, App.BotSender.Id, messageText);
                 var conversation = await _directLineApiClient.GetMessagesAsync(_conversationId, _botWaterMark);
                 Messages.Clear();

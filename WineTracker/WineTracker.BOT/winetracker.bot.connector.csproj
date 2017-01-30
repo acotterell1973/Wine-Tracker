@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WineTracker.BOT</RootNamespace>
-    <AssemblyName>Bot Application1</AssemblyName>
+    <RootNamespace>winetracker.bot.connector</RootNamespace>
+    <AssemblyName>winetracker.bot.connector</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -121,9 +121,9 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="DIalog\EchoDialog.cs" />
-    <Compile Include="DIalog\AlarmDialog.cs" />
-    <Compile Include="DIalog\WineHunterCaptureDialog.cs" />
+    <Compile Include="Dialog\EchoDialog.cs" />
+    <Compile Include="Dialog\AlarmDialog.cs" />
+    <Compile Include="FormFlow\WineHunterCaptureDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Tesseract;
+using WineTracker.Interface;
 using WineTracker.Models;
 using WineTracker.Services;
 using WineTracker.Services.Components;
@@ -37,7 +38,7 @@ namespace WineTracker.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await CoreMethods.PushPageModel<WineCaptureViewModel>();
+                    await CoreMethods.PushPageModel<ChatBotViewModel>();
                 });
             }
         }

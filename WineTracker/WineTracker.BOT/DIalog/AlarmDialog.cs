@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis;
 using Microsoft.Bot.Builder.Luis.Models;
 
-namespace WineTracker.BOT.DIalog
+namespace winetracker.bot.connector.Dialog
 {
     [LuisModel("c413b2ef-382c-45bd-8ff0-f76d60e2a821", "6d0966209c6e4f6b835ce34492f3e6d9")]
     [Serializable]

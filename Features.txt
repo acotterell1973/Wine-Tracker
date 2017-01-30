@@ -22,3 +22,8 @@ iOS JSQMessages https://github.com/rlingineni/Xamarin.Forms-ChatMessenger/tree/m
 
 WEBSOCKETS PCL
 https://github.com/NVentimiglia/Websockets.PCL
+
+JSQ Message View
+1. http://stackoverflow.com/questions/39373082/how-to-add-custom-view-to-jsqmessagesviewcontroller-cell-so-that-it-includes-one
+2. https://learnappmaking.com/messagecenter/
+3. https://blog.xamarin.com/add-yap-to-your-app-with-bot-framework/

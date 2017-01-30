@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.FormFlow;
 
-namespace WineTracker.BOT.DIalog
+namespace winetracker.bot.connector.FormFlow
 {
     public enum CaptureOptions
     {

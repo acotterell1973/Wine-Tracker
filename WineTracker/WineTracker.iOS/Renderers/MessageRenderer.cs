@@ -1,5 +1,4 @@
 ﻿using UIKit;
-using WineTracker.Controls;
 using WineTracker.iOS.Renderers;
 using WineTracker.Pages.Controls;
 using WineTracker.ViewModels;

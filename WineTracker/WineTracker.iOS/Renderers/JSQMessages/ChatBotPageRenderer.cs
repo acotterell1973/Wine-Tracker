@@ -1,8 +1,6 @@
-﻿using System;
-using CoreGraphics;
+﻿using CoreGraphics;
 using Foundation;
 using UIKit;
-using WineTracker.EventHandler;
 using WineTracker.iOS.Renderers.JSQMessages;
 using WineTracker.iOS.Renderers.JSQMessages.ChatHelpers;
 using WineTracker.Models.DirectLineClient;
@@ -42,7 +40,7 @@ namespace WineTracker.iOS.Renderers.JSQMessages
 				sender = new BotUser() {Id = ChatBotPage.SenderId, DisplayName = ChatBotPage.SenderName},
 				View = {Frame = View.Frame}
 			};
-            viewController.messages.Add(new Message(ChatBotPage.SenderId, ChatBotPage.SenderName, NSDate.DistantPast, "Hi There"));
+            //viewController.messages.Add(new Message(ChatBotPage.SenderId, ChatBotPage.SenderName, NSDate.DistantPast, "Hi There"));
             navigationController = new UINavigationController();
 			navigationController.PushViewController(viewController, false);
 

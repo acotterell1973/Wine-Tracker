@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Plugin.Geolocator.Abstractions;
 using WineTracker.Models;
 
-namespace WineTracker.Services.Components
+namespace WineTracker.Interface
 {
     public interface IGeoLocationComponent
     {

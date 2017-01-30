@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WineTracker.Models;
 
-namespace WineTracker.Services.Components
+namespace WineTracker.Interface
 {
     public interface IWineHunterComponent
     {

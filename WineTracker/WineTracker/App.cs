@@ -40,19 +40,14 @@ namespace WineTracker
             RegisterDependancies();
             RegisterRootNavigation();
 
-            BotMessageHandler.BotMessageEventReceived += BotMessageHandler_BotMessageEventReceived;
             
         }
 
-        private void BotMessageHandler_BotMessageEventReceived(object sender, EventHandler.BotMessageEventEventArgs e)
-        {
-            BotMessageHandler.PublishMessage("pcl", "pcl");
-        }
 
         private void RegisterRootNavigation()
         {
 
-            var loginPage = FreshPageModelResolver.ResolvePageModel<ChatBotViewModel>();
+            var loginPage = FreshPageModelResolver.ResolvePageModel<LoginViewModel>();
             var loginContainer = new FreshNavigationContainer(loginPage, NavigationContainerNames.AuthenticationContainer);
             var masterDetailContainer = new ThemedMasterDetailNavigationContainer(NavigationContainerNames.MainContainer);
             masterDetailContainer.Init("Menu", "Menu-30.png");
@@ -76,6 +71,7 @@ namespace WineTracker
             FreshIOC.Container.Register<IUpcCodeComponent, UpcCodeComponent>();
             FreshIOC.Container.Register<IUpcCodeService, UpcCodeSerivce>();
             FreshIOC.Container.Register<ICognitiveService, CognitiveService>();
+            FreshIOC.Container.Register<IWineHunterBotConnectorApitClient, WineHunterBotConnectorApitClient>();
             FreshIOC.Container.Register(HttpClientConnector.Instance);
 
         }

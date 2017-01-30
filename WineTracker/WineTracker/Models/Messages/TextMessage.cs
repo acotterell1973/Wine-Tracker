@@ -1,7 +1,6 @@
 ﻿using System;
-using WineTracker.Models.Messages;
 
-namespace WineTracker.Models
+namespace WineTracker.Models.Messages
 {
     public class TextMessage : Event
     {

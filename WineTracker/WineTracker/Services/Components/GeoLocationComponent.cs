@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using Polly;
+using WineTracker.Interface;
 using WineTracker.Models;
 using WineTracker.Services.Components.ExternalServices;
 using Xamarin;

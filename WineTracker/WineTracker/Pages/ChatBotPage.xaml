@@ -11,8 +11,6 @@
   <pages:BasePage.Content>
     <StackLayout Orientation="Vertical">
       <!-- CURRENT WINE INFO -->
-
-
       <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" Style="{StaticResource addWineBucketStyle}" HorizontalOptions="FillAndExpand">
         <AbsoluteLayout HorizontalOptions="FillAndExpand">
           <Image AbsoluteLayout.LayoutBounds="1,1,AutoSize, AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Source="exploded_wine_glass" ></Image>
@@ -24,11 +22,9 @@
         </AbsoluteLayout>
       </freshEssentials:AdvancedFrame>
 
-
-
       <!-- BOT CHAT -->
 
-
+      <!-- JSQMessages will be rendered here --> 
 
     </StackLayout>
 

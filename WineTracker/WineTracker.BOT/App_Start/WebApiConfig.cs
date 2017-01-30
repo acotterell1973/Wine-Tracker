@@ -1,11 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System.Web.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
 
-namespace WineTracker.BOT
+namespace winetracker.bot.connector
 {
     public static class WebApiConfig
     {

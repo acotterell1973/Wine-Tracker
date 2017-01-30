@@ -5,6 +5,7 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using PropertyChanged;
 using Tesseract;
+using WineTracker.Interface;
 using WineTracker.Models;
 using WineTracker.Services;
 using WineTracker.Services.Components;

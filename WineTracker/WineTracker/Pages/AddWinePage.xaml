@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:WineTracker.Pages;assembly=WineTracker"
              xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
-             xmlns:controls="clr-namespace:WineTracker.Controls;assembly=WineTracker"
-             xmlns:controls1="clr-namespace:WineTracker.Pages.Controls;assembly=WineTracker"
+                xmlns:controls1="clr-namespace:WineTracker.Pages.Controls;assembly=WineTracker"
              x:Class="WineTracker.Pages.AddWinePage">
 
   <pages:EditPage.ToolbarItems>
@@ -36,8 +35,8 @@
       <freshEssentials:AdvancedFrame Margin="5,0,5,5" Corners="all" CornerRadius="3" HeightRequest="{Binding ChatLayoutHeight, Mode=TwoWay}"  >
         <StackLayout  Orientation="Vertical">
 
-          <controls:ChatListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Events }" >
-           <controls:ChatListView.ItemTemplate>
+          <controls1:ChatListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Events }" >
+           <controls1:ChatListView.ItemTemplate>
              <DataTemplate>
                <controls1:MessageViewCell>
                  <StackLayout Orientation="Horizontal">
@@ -46,8 +45,8 @@
                  </StackLayout>
                </controls1:MessageViewCell>  
              </DataTemplate>
-           </controls:ChatListView.ItemTemplate>
-          </controls:ChatListView>
+           </controls1:ChatListView.ItemTemplate>
+          </controls1:ChatListView>
           <StackLayout Orientation="Horizontal">
             <Entry HorizontalOptions="FillAndExpand" Keyboard="Chat" Placeholder="Type Message" HeightRequest="30" Text="{Binding ChatInputText, Mode=TwoWay}"  />
             <Button VerticalOptions="EndAndExpand" Text="   Send   " Command="{Binding SendMessageCommand}"  />

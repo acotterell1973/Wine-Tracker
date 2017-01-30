@@ -1,5 +1,6 @@
 ﻿using System;
 using WineTracker.Models;
+using WineTracker.Models.Messages;
 
 namespace WineTracker.ViewModels
 {

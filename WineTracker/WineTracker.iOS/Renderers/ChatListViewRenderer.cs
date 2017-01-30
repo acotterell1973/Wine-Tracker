@@ -2,8 +2,8 @@
 using System.Reflection;
 using Foundation;
 using UIKit;
-using WineTracker.Controls;
 using WineTracker.iOS.Renderers;
+using WineTracker.Pages.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
