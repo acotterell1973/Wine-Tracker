@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WineTracker.Extensions;
 using WineTracker.Interface;
 using WineTracker.Models;
 using WineTracker.Models.Messages;
 using WineTracker.Services;
-using Xamarin.Forms;
 
 namespace WineTracker.ViewModels
 {
@@ -21,32 +18,31 @@ namespace WineTracker.ViewModels
             _eventViewModelFactory = new EventViewModelFactory();
             _chatServices = chatServices;
         }
-        private EventViewModelFactory _eventViewModelFactory;
-        private IChatServices _chatServices;
+
+        private readonly EventViewModelFactory _eventViewModelFactory;
+        private readonly IChatServices _chatServices;
         private const float DefaultChatWindowHeight = 500;
         public override async void Init(object initData)
         {
             base.Init(initData);
-            Model = new WineItemInfo();
-
+            
             BotMessageHandler.BotMessageEventReceived += BotMessageHandler_BotMessageEventReceived;
-
             await InitiliazeConversation("Andrew Cotterell");
-            //Adjust the chat windows when the keyboad is open or close.
-            KeyboardHelper.KeyboardChanged += (sender, e) =>
-            {
-                //Default Height is 500
-                
-            };
+
         }
 
         private async Task InitiliazeConversation(string fullName)
         {
-            await _chatServices.SendMessage(fullName);
+            await _chatServices.GetMessages();
 
             _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, App.BotSender.DisplayName));
-            var lastMessage = (TextMessage)_chatServices.Messages.Last();
-            BotMessageHandler.PublishMessage(lastMessage.AuthorName, lastMessage.Body);
+            var eventMessages =  _chatServices.Messages;
+            if (eventMessages.Count > 0)
+            {
+                var lastMessage = (TextMessage)_chatServices.Messages.Last();
+                BotMessageHandler.PublishMessage(lastMessage.AuthorName, lastMessage.Body);
+            }
+            
         }
 
         #region property
@@ -64,8 +60,24 @@ namespace WineTracker.ViewModels
             await _chatServices.SendMessage(text);
 
             _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, App.BotSender.DisplayName));
-            var lastMessage = (TextMessage)_chatServices.Messages.Last();
-            BotMessageHandler.PublishMessage(lastMessage.AuthorName, lastMessage.Body);
+
+            string botid = string.Empty;
+            Queue<TextMessage> messageQueue = new Queue<TextMessage>();
+            //find the last set of messages sent by the bot
+            foreach (var source in _chatServices.Messages.Reverse())
+            {
+                var textmessage = (TextMessage) source;
+                if (botid == "") botid = textmessage.AuthorName;
+
+                if (botid != textmessage.AuthorName) break;
+                messageQueue.Enqueue(textmessage);
+            }
+            foreach (var textMessage in messageQueue.ToList())
+            {
+                var botMessage = messageQueue.Dequeue();
+                BotMessageHandler.PublishMessage(botMessage.AuthorName, botMessage.Body);
+            }
+            
         }
 
     }

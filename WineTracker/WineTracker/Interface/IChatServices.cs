@@ -11,5 +11,6 @@ namespace WineTracker.Interface
 
         Task SendImage(byte[] image);
         Task SendMessage(string message);
+        Task GetMessages();
     }
 }

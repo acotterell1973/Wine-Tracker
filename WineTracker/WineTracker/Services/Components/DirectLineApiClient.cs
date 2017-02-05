@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WineTracker.Interface;
@@ -74,7 +75,18 @@ namespace WineTracker.Services.Components
             return null;
 
         }
-
+        //Refreshes the token 5 minutes for it expires
+        private async Task PeriodicRefreshTokenAsync(CancellationToken cancellationToken)
+        {
+            while (true)
+            {
+                //var authResponse = await GetBotConnectorToken();
+                //_botConnectorToken = authResponse.access_token;
+                ////wait 5 minutes before the token expires to get a new one.
+                //var interval = TimeSpan.FromSeconds(authResponse.expires_in - (5 * 60));
+                //await Task.Delay(interval, cancellationToken);
+            }
+        }
         public async Task RefreshTokenAsync()
         {
 

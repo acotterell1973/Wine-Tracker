@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WineTracker.Pages;assembly=WineTracker"
              xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
-             x:Class="WineTracker.Pages.DashboardPage" Title="Wine Hunter" >
+             x:Class="WineTracker.Pages.DashboardPage" Title="Wine Stains" >
   <local:BasePage.ToolbarItems>
-    <ToolbarItem Priority="0" Icon="Plus-30.png" Order="Primary" Command="{Binding AddWineCommand}" />
+    <ToolbarItem Priority="0" Icon="bot-chat-30.png" Order="Primary" Command="{Binding AddWineCommand}" />
   </local:BasePage.ToolbarItems>
   <local:BasePage.Content>
 

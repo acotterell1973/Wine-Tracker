@@ -8,9 +8,7 @@ using Tesseract;
 using WineTracker.Interface;
 using WineTracker.Models;
 using WineTracker.Services;
-using WineTracker.Services.Components;
 using Xamarin.Forms;
-using ZXing.Mobile;
 using Result = WineTracker.Models.Result;
 
 namespace WineTracker.ViewModels
@@ -81,51 +79,7 @@ namespace WineTracker.ViewModels
 
         }
         #endregion
-        #region Commands
-        public Command SendMessageCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await CoreMethods.PushPageModel<AddWineViewModel>();
-                });
-            }
-        }
-        public Command ScanbarCode
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await CoreMethods.PushPageModel<AddWineViewModel>();
-                });
-            }
-        }
-
-        public Command ScanImage
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await CoreMethods.PushPageModel<AddWineViewModel>();
-                });
-            }
-        }
-
-        public Command CancelCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await CoreMethods.PopPageModel();
-                });
-            }
-        }
-        #endregion
-
+  
         #region Helpers
         private async Task<WineItemInfo> QueryUpc(string upc)
         {

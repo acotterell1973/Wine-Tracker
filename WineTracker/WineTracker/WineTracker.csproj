@@ -47,8 +47,6 @@
     <Compile Include="Pages\ChatBotPage.xaml.cs">
       <DependentUpon>ChatBotPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Controls\ChatListView.cs" />
-    <Compile Include="Pages\Controls\MessageViewCell.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\NamedObservableCollection.cs" />
     <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
@@ -56,7 +54,6 @@
     <Compile Include="Models\BottleImage.cs" />
     <Compile Include="Models\BottleInfo.cs" />
     <Compile Include="Models\DirectLineClient\Activity.cs" />
-    <Compile Include="Models\DirectLineClient\Attachment.cs" />
     <Compile Include="Models\DirectLineClient\AuthenticationResponse.cs" />
     <Compile Include="Models\DirectLineClient\ConversationMessages.cs" />
     <Compile Include="Models\DirectLineClient\Message.cs" />
@@ -89,9 +86,6 @@
     <Compile Include="Models\VoiceVerification.cs" />
     <Compile Include="NavigationService\MenuItem.cs" />
     <Compile Include="NavigationService\ThemedMasterDetailNavigationContainer.cs" />
-    <Compile Include="Pages\AddWinePage.xaml.cs">
-      <DependentUpon>AddWinePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Controls\ScalableEntry.cs" />
     <Compile Include="Pages\EditPage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
@@ -99,9 +93,6 @@
     </Compile>
     <Compile Include="Pages\VoiceVerificationPage.xaml.cs">
       <DependentUpon>VoiceVerificationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WineCapturePage.xaml.cs">
-      <DependentUpon>WineCapturePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\ChatServices.cs" />
     <Compile Include="Services\ChatServicesBase.cs" />
@@ -114,7 +105,6 @@
     <Compile Include="Interface\IWineHunterComponent.cs" />
     <Compile Include="Models\DirectLineClient\ReconnectMessageResponse.cs" />
     <Compile Include="Interface\IWineHunterBotConnectorApitClient.cs" />
-    <Compile Include="Services\Components\WineHunterBotConnectorApiClient.cs" />
     <Compile Include="Services\Components\WineHunterComponent.cs" />
     <Compile Include="Interface\ICongnitiveService.cs" />
     <Compile Include="Services\EventViewModelFactory.cs" />
@@ -145,7 +135,6 @@
     <Compile Include="Styles\BrandColor.cs" />
     <Compile Include="Styles\DefaultStyle.cs" />
     <Compile Include="Styles\Styles.cs" />
-    <Compile Include="ViewModels\AddWineViewModel.cs" />
     <Compile Include="ViewModels\BaseNotificationHandler.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ChatBotViewModel.cs" />
@@ -296,6 +285,10 @@
     <Reference Include="Tesseract.iOS">
       <HintPath>..\..\packages\Xamarin.Tesseract.0.3.2\lib\Xamarin.iOS10\Tesseract.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="WebSockets.PCL, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Websockets.Pcl.1.1.9\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10\WebSockets.PCL.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.3.180\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>
@@ -366,12 +359,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\WineCapturePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -379,12 +366,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\VoiceVerificationPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Pages\AddWinePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

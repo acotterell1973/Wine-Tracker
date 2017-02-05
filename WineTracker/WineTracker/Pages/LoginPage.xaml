@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WineTracker.Pages;assembly=WineTracker"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-             x:Class="WineTracker.Pages.LoginPage" Title="Wine Hunter" BackgroundImage="bg_bw.png" >
+             x:Class="WineTracker.Pages.LoginPage" Title="Wine Stains" BackgroundImage="bg_bw.png" >
 
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"  HorizontalOptions="Center">

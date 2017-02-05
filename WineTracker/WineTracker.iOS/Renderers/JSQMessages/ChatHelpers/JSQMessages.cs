@@ -21,7 +21,8 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
         public List<Message> messages = new List<Message>();
 
         public BotUser sender { get; set; } //look at the model, sender is given from the forms page
-        
+        public BotUser friend => new BotUser {Id = "winehunterbot", DisplayName = "Wine Stain Bot"}; //bot user info
+
         public event System.EventHandler closePage;
 
         public override void ViewDidLoad()
@@ -47,6 +48,9 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
 
             //Listen for message from Notification Center (coming from the PCL Lib)
             NSNotificationCenter.DefaultCenter.AddObserver((NSString)"OnMessegeReceviedNotification", OnMessegeReceviedNotification);
+            messages.Add(new Message(friend.Id, friend.DisplayName, NSDate.DistantPast, "Connecting...."));
+            //Show typing indicator to add to the natual feel of the bot
+            ShowTypingIndicator = true;
         }
 
         public override void ViewDidAppear(bool animated)
@@ -121,16 +125,6 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
 
         public override async void PressedSendButton(UIButton button, string text, string senderId, string senderDisplayName, NSDate date)
         {
-            InputToolbar.ContentView.TextView.Text = "";
-            InputToolbar.ContentView.RightBarButtonItem.Enabled = false;
-            SystemSoundPlayer.PlayMessageSentSound();
-
-            var message = new Message(SenderId, SenderDisplayName, NSDate.Now, text);
-            messages.Add(message);
-            FinishSendingMessage(true);
-
-            //Show typing indicator to add to the natual feel of the bot
-            ShowTypingIndicator = true;
 
             var messageAttrs = new Dictionary<string, string>
                 {
@@ -143,6 +137,15 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
             var messageDict = NSDictionary.FromObjectsAndKeys(messageAttrs.Values.ToArray(), messageAttrs.Keys.ToArray());
             NSNotificationCenter.DefaultCenter.PostNotificationName((NSString)"OnMessegeSendNotification", this, messageDict);
 
+            InputToolbar.ContentView.TextView.Text = "";
+            InputToolbar.ContentView.RightBarButtonItem.Enabled = false;
+            SystemSoundPlayer.PlayMessageSentSound();
+
+            var message = new Message(SenderId, SenderDisplayName, NSDate.Now, text);
+            messages.Add(message);
+            FinishSendingMessage(true);
+            //Show typing indicator to add to the natual feel of the bot
+            ShowTypingIndicator = true;
         }
         /// <summary>
         /// Message Listener handler from the PCL library, 
@@ -156,13 +159,13 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
             //BOT Friendly name
             var messageString = messageDictionary.ValueForKey(new NSString("MESSAGE")).ToString();
             //BOT User Id
-            var senderIdString = messageDictionary.ValueForKey(new NSString("SENDERID")).ToString();
+            friend.Id = messageDictionary.ValueForKey(new NSString("SENDERID")).ToString();
 
             ScrollToBottom(true);
             SystemSoundPlayer.PlayMessageReceivedSound();
 
             //Add the message to JSQMessage Chat UI
-            var message = new Message(senderIdString, senderIdString, NSDate.Now, messageString);
+            var message = new Message(friend.Id, friend.DisplayName, NSDate.Now, messageString);
             messages.Add(message);
             FinishSendingMessage(true);
             //Show typing indicator to add to the natual feel of the bot

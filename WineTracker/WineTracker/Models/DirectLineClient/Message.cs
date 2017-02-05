@@ -9,6 +9,9 @@ namespace WineTracker.Models.DirectLineClient
     {
         [JsonProperty("id")]
         public string Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
     }
     public class Message
     {
@@ -37,8 +40,8 @@ namespace WineTracker.Models.DirectLineClient
         [JsonProperty("images")]
         public IList<string> Images { get; set; }
 
-        [JsonProperty("attachments")]
-        public IList<Attachement> Attachments { get; set; }
+        //[JsonProperty("attachments")]
+        //public IList<Attachement> Attachments { get; set; }
 
         [JsonProperty("eTag")]
         public string ETag { get; set; }

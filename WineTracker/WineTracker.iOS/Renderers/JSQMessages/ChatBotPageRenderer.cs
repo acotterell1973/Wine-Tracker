@@ -1,5 +1,4 @@
 ﻿using CoreGraphics;
-using Foundation;
 using UIKit;
 using WineTracker.iOS.Renderers.JSQMessages;
 using WineTracker.iOS.Renderers.JSQMessages.ChatHelpers;
@@ -7,7 +6,6 @@ using WineTracker.Models.DirectLineClient;
 using WineTracker.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using Message = JSQMessagesViewController.Message;
 
 [assembly: ExportRenderer(typeof(ChatBotPage), typeof(ChatBotPageRenderer))]
 namespace WineTracker.iOS.Renderers.JSQMessages

@@ -5,8 +5,6 @@
              xmlns:freshEssentials="clr-namespace:FreshEssentials;assembly=FreshEssentials"
              x:Class="WineTracker.Pages.ChatBotPage">
     <pages:BasePage.ToolbarItems>
-    <ToolbarItem Text="Save" Priority="0" Order="Primary" />
-    <ToolbarItem Text="Cancel" Priority="1" Order="Primary" Command="{Binding CancelCommand}" />
   </pages:BasePage.ToolbarItems>
   <pages:BasePage.Content>
     <StackLayout Orientation="Vertical">

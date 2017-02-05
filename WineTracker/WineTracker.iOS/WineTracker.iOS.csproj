@@ -112,16 +112,12 @@
     <Compile Include="KeyboardHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Renderers\BubbleCell.cs" />
-    <Compile Include="Renderers\ChatBubble.cs" />
-    <Compile Include="Renderers\ChatListViewRenderer.cs" />
     <Compile Include="Renderers\FrameExtRenderer.cs" />
     <Compile Include="Renderers\JSQMessages\ChatHelpers\JSQMessages.cs" />
     <Compile Include="Renderers\JSQMessages\ChatHelpers\MessageFactory.cs" />
     <Compile Include="Renderers\JSQMessages\ChatBotPageRenderer.cs" />
     <Compile Include="Renderers\JSQMessages\JSQMessageLayoutPosition.cs" />
     <Compile Include="Renderers\JSQMessages\ScalableEntryRenderer.cs" />
-    <Compile Include="Renderers\MessageRenderer.cs" />
     <Compile Include="Renderers\NavigationPageRenderer.cs" />
     <Compile Include="Renderers\WineContentPageRenderer.cs" />
     <Compile Include="Settings.cs" />
@@ -473,6 +469,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bot-chat-30.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
