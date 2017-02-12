@@ -104,7 +104,7 @@
     <Compile Include="Interface\IGeoLocationComponent.cs" />
     <Compile Include="Interface\IWineHunterComponent.cs" />
     <Compile Include="Models\DirectLineClient\ReconnectMessageResponse.cs" />
-    <Compile Include="Interface\IWineHunterBotConnectorApitClient.cs" />
+    <Compile Include="EventHandler\OnMessageEventArgs.cs" />
     <Compile Include="Services\Components\WineHunterComponent.cs" />
     <Compile Include="Interface\ICongnitiveService.cs" />
     <Compile Include="Services\EventViewModelFactory.cs" />

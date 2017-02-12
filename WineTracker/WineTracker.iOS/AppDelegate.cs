@@ -43,6 +43,7 @@ namespace WineTracker.iOS
                     Insights.PurgePendingCrashReports().Wait();
                 }
             };
+            Websockets.Ios.WebsocketConnection.Link();
             Insights.Initialize("3d83ba77a780617613caa96baf8226577b204f67");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());

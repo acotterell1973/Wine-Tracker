@@ -25,24 +25,7 @@ namespace WineTracker.ViewModels
         public override async void Init(object initData)
         {
             base.Init(initData);
-            
             BotMessageHandler.BotMessageEventReceived += BotMessageHandler_BotMessageEventReceived;
-            await InitiliazeConversation("Andrew Cotterell");
-
-        }
-
-        private async Task InitiliazeConversation(string fullName)
-        {
-            await _chatServices.GetMessages();
-
-            _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, App.BotSender.DisplayName));
-            var eventMessages =  _chatServices.Messages;
-            if (eventMessages.Count > 0)
-            {
-                var lastMessage = (TextMessage)_chatServices.Messages.Last();
-                BotMessageHandler.PublishMessage(lastMessage.AuthorName, lastMessage.Body);
-            }
-            
         }
 
         #region property
