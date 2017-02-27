@@ -1,4 +1,4 @@
-# Wine-Tracker
+# Wine-Tracker AKA Wine Stains
 
 This repo is a fun little project that I'm currently working on that will utilize a lot of the emerging technologies from Microsoft, which includes: <br><br>
 <ul>
