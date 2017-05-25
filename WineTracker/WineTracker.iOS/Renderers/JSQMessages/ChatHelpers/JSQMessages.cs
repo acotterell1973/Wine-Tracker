@@ -19,19 +19,21 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
         MessagesBubbleImage incomingBubbleImageData;
 
         public List<Message> messages = new List<Message>();
+        private int _messageCount;
 
         public BotUser sender { get; set; } //look at the model, sender is given from the forms page
-        public BotUser friend => new BotUser {Id = "winehunterbot", DisplayName = "Wine Stain Bot"}; //bot user info
+        public BotUser friend => new BotUser { Id = "winehunterbot", DisplayName = "Wine Stain Bot" }; //bot user info
 
         public event System.EventHandler closePage;
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            //   UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, 44, 0.0);
 
             // You must set your senderId and display name
-            SenderId = sender.Id;
-            SenderDisplayName = sender.DisplayName;
+         //   SenderId = sender.Id;
+           // SenderDisplayName = sender.DisplayName;
 
 
             // These MessagesBubbleImages will be used in the GetMessageBubbleImageData override
@@ -48,10 +50,13 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
 
             //Listen for message from Notification Center (coming from the PCL Lib)
             NSNotificationCenter.DefaultCenter.AddObserver((NSString)"OnMessegeReceviedNotification", OnMessegeReceviedNotification);
-            messages.Add(new Message(friend.Id, friend.DisplayName, NSDate.DistantPast, "Connecting...."));
+            NSNotificationCenter.DefaultCenter.AddObserver((NSString)"JSQMessagesKeyboardControllerNotificationKeyboardDidChangeFrame", jsq_didReceiveKeyboardWillChangeFrameNotification);
+         //   messages.Add(new Message(friend.Id, friend.DisplayName, NSDate.DistantPast, "Connecting...."));
             //Show typing indicator to add to the natual feel of the bot
             ShowTypingIndicator = true;
         }
+
+
 
         public override void ViewDidAppear(bool animated)
         {
@@ -123,8 +128,19 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
             return null;
         }
 
+        
         public override async void PressedSendButton(UIButton button, string text, string senderId, string senderDisplayName, NSDate date)
         {
+
+            InputToolbar.ContentView.TextView.Text = "";
+            InputToolbar.ContentView.RightBarButtonItem.Enabled = false;
+            //     SystemSoundPlayer.PlayMessageSentSound();
+
+            var message = new Message(SenderId, SenderDisplayName, NSDate.Now, text);
+            messages.Add(message);
+            FinishSendingMessage(true);
+            //Show typing indicator to add to the natual feel of the bot
+            ShowTypingIndicator = true;
 
             var messageAttrs = new Dictionary<string, string>
                 {
@@ -137,15 +153,6 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
             var messageDict = NSDictionary.FromObjectsAndKeys(messageAttrs.Values.ToArray(), messageAttrs.Keys.ToArray());
             NSNotificationCenter.DefaultCenter.PostNotificationName((NSString)"OnMessegeSendNotification", this, messageDict);
 
-            InputToolbar.ContentView.TextView.Text = "";
-            InputToolbar.ContentView.RightBarButtonItem.Enabled = false;
-            SystemSoundPlayer.PlayMessageSentSound();
-
-            var message = new Message(SenderId, SenderDisplayName, NSDate.Now, text);
-            messages.Add(message);
-            FinishSendingMessage(true);
-            //Show typing indicator to add to the natual feel of the bot
-            ShowTypingIndicator = true;
         }
         /// <summary>
         /// Message Listener handler from the PCL library, 
@@ -161,16 +168,25 @@ namespace WineTracker.iOS.Renderers.JSQMessages.ChatHelpers
             //BOT User Id
             friend.Id = messageDictionary.ValueForKey(new NSString("SENDERID")).ToString();
 
+            FinishSendingMessage(true);
+            //Show typing indicator to add to the natual feel of the bot
+            ShowTypingIndicator = false;
+
             ScrollToBottom(true);
-            SystemSoundPlayer.PlayMessageReceivedSound();
+
+            //    SystemSoundPlayer.PlayMessageReceivedSound();
 
             //Add the message to JSQMessage Chat UI
             var message = new Message(friend.Id, friend.DisplayName, NSDate.Now, messageString);
             messages.Add(message);
-            FinishSendingMessage(true);
-            //Show typing indicator to add to the natual feel of the bot
-            ShowTypingIndicator = false;
+
+            FinishReceivingMessage(true);
             InputToolbar.ContentView.RightBarButtonItem.Enabled = true;
+        }
+
+        private void jsq_didReceiveKeyboardWillChangeFrameNotification(NSNotification notification)
+        {
+
         }
 
     }

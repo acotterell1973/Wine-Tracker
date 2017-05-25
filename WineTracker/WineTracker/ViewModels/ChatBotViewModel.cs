@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WineTracker.Extensions;
 using WineTracker.Interface;
 using WineTracker.Models;
+using WineTracker.Models.DirectLineClient;
 using WineTracker.Models.Messages;
 using WineTracker.Services;
 
@@ -22,10 +23,33 @@ namespace WineTracker.ViewModels
         private readonly EventViewModelFactory _eventViewModelFactory;
         private readonly IChatServices _chatServices;
         private const float DefaultChatWindowHeight = 500;
+        private int _messageCount;
         public override async void Init(object initData)
         {
             base.Init(initData);
+            _chatServices.OnBotMessageReceived += chatServices_OnBotMessage;
             BotMessageHandler.BotMessageEventReceived += BotMessageHandler_BotMessageEventReceived;
+        }
+
+        Dictionary<string,Activity> trackMessages = new Dictionary<string, Activity>(); 
+        private void chatServices_OnBotMessage(object sender, EventHandler.OnMessageEventArgs e)
+        {
+            var messages = e.BotActivityMessage.Messages;
+            foreach (Activity activity in messages)
+            {
+                if (activity.Id != null)
+                {
+                    var id = activity.Id.Split('|')[1];
+                    if (!trackMessages.ContainsKey(id))
+                    {
+                        if (activity.From.Id == "winehunterbot")
+                        {
+                            BotMessageHandler.PublishMessage(activity.From.Name, activity.Text);
+                        }
+                        trackMessages.Add(id, activity);
+                    }
+                }
+            }
         }
 
         #region property
@@ -39,28 +63,7 @@ namespace WineTracker.ViewModels
             if (string.IsNullOrEmpty(e.Message))
                 return;
             var text = e.Message;
-           
             await _chatServices.SendMessage(text);
-
-            _chatServices.Messages.SynchronizeWith(Events, i => _eventViewModelFactory.Get(i, App.BotSender.DisplayName));
-
-            string botid = string.Empty;
-            Queue<TextMessage> messageQueue = new Queue<TextMessage>();
-            //find the last set of messages sent by the bot
-            foreach (var source in _chatServices.Messages.Reverse())
-            {
-                var textmessage = (TextMessage) source;
-                if (botid == "") botid = textmessage.AuthorName;
-
-                if (botid != textmessage.AuthorName) break;
-                messageQueue.Enqueue(textmessage);
-            }
-            foreach (var textMessage in messageQueue.ToList())
-            {
-                var botMessage = messageQueue.Dequeue();
-                BotMessageHandler.PublishMessage(botMessage.AuthorName, botMessage.Body);
-            }
-            
         }
 
     }

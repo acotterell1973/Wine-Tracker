@@ -86,6 +86,11 @@ namespace WineTracker.Services.Components
         private void Connection_OnMessage(string response)
         {
             var activity = JsonConvert.DeserializeObject<ConversationMessages>(response);
+            //ignore empty messages. Empty messages are to ensure socket connection.
+            if(activity==null) return;
+            //Track activity via watermark
+            activity = TrackActivity(activity);
+
             OnBotMessage?.Invoke(this, new OnMessageEventArgs(activity));
         }
 
@@ -252,7 +257,11 @@ namespace WineTracker.Services.Components
 
         }
 
-
+        private ConversationMessages TrackActivity(ConversationMessages activity)
+        {
+            //TODO: Implement
+            return activity;
+        }
         #endregion
     }
 }

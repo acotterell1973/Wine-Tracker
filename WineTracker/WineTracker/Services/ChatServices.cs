@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using WineTracker.EventHandler;
 using WineTracker.Interface;
 using WineTracker.Models.Messages;
 
@@ -45,34 +46,36 @@ namespace WineTracker.Services
         {
             if (e?.BotActivityMessage == null) return;
             Messages.Clear();
-            foreach (var message in e.BotActivityMessage.Messages)
-            {
-                TextMessage botMessage;
-                if (message.From.Id == "winehunterbot")
-                {
-                    //UI Message to display
-                    botMessage = new TextMessage
-                    {
-                        AuthorName = App.BotFriend.DisplayName,
-                        Body = message.Text,
-                        IsAdmin = false,
-                        Timestamp = DateTime.Now
-                    };
-                }
-                else
-                {
-                    //UI Message to display
-                    botMessage = new TextMessage
-                    {
-                        AuthorName = App.BotSender.DisplayName,
-                        Body = message.Text,
-                        IsAdmin = true,
-                        Timestamp = DateTime.Now
-                    };
-                }
+            //foreach (var message in e.BotActivityMessage.Messages)
+            //{
+            //    TextMessage botMessage;
+            //    if (message.From.Id == "winehunterbot")
+            //    {
+            //        //UI Message to display
+            //        botMessage = new TextMessage
+            //        {
+            //            AuthorName = App.BotFriend.DisplayName,
+            //            Body = message.Text,
+            //            IsAdmin = false,
+            //            Timestamp = DateTime.Now
+            //        };
+            //    }
+            //    else
+            //    {
+            //        //UI Message to display
+            //        botMessage = new TextMessage
+            //        {
+            //            AuthorName = App.BotSender.DisplayName,
+            //            Body = message.Text,
+            //            IsAdmin = true,
+            //            Timestamp = DateTime.Now
+            //        };
+            //    }
 
-                Messages.Add(botMessage);
-            }
+            //    Messages.Add(botMessage);
+            //}
+            
+            OnBotMessageReceived?.Invoke(this, new OnMessageEventArgs(e.BotActivityMessage));
         }
 
         #region public methods
@@ -84,6 +87,8 @@ namespace WineTracker.Services
             //BOT Conversation
             await _directLineApiClient.SendMessageAsync(App.BotSender.Id, messageText);
         }
+
+        public event EventHandler<OnMessageEventArgs> OnBotMessageReceived;
 
         public Task SendImage(byte[] image)
         {

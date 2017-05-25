@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using WineTracker.EventHandler;
 using WineTracker.Models.Messages;
 
 namespace WineTracker.Interface
@@ -10,6 +12,6 @@ namespace WineTracker.Interface
 
         Task SendImage(byte[] image);
         Task SendMessage(string message);
-
+        event EventHandler<OnMessageEventArgs> OnBotMessageReceived;
     }
 }
